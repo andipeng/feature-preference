@@ -7,12 +7,6 @@ import csv
 import itertools
 
 ##### Define features and actions
-#TEXTURES = ['spotted', 'plain', 'striped']
-#COLORS = ['green', 'red', 'blue']
-#SHAPES = ['circle', 'square', 'triangle']
-#HEIGHTS = ['tall', 'medium', 'short']
-#WEIGHTS = ['heavy', 'middle', 'light']
-#SMELLS = ['sweet', 'earthy', 'rancid']
 TEXTURES = [[1,0,0],[0,1,0],[0,0,1]]
 COLORS = [[1,0,0],[0,1,0],[0,0,1]]
 SHAPES = [[1,0,0],[0,1,0],[0,0,1]]
@@ -25,12 +19,6 @@ FEATURES = TEXTURES + COLORS + SHAPES + HEIGHTS + WEIGHTS + SMELLS
 STATES = [{"texture": state[0], "color": state[1], "shape": state[2], "height": state[3], "weight": state[4], "smell": state[5]} 
            for state in itertools.product(TEXTURES, COLORS, SHAPES, HEIGHTS, WEIGHTS, SMELLS)]
 
-#TRUE_REWARDS = {"spotted": 1, "plain": 0,  "striped": -1, 
-#                "green": 1, "red": 0, "blue": -1,
-#                "circle": 1, "square": 0, "triangle": -1,
-#                "tall": 0, "medium": 0, "short": 0,
-#                "heavy": 0, "triangle": 0, "square": -1,
-#                "sweet": 0, "earthy": 0, "rancid": 0}
 TRUE_REWARDS = {"texture":[1,0,-1],
                 "color":[1,0,-1],
                 "shape":[1,0,-1],
@@ -39,8 +27,8 @@ TRUE_REWARDS = {"texture":[1,0,-1],
                 "smell":[0,0,0]}
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--num_comparisons', type=int, default=300)
-parser.add_argument('--save_file', type=str, default='train_rewards300.csv')
+parser.add_argument('--num_comparisons', type=int, default=500)
+parser.add_argument('--save_file', type=str, default='train_rewards500.csv')
 
 args = parser.parse_args()
 
@@ -81,9 +69,9 @@ with open(args.save_file, 'w', newline='') as csv_file:
         state1 = flatten_state(state1)
         state2 = flatten_state(state2)
         # saves preferences
-        pref = 0
+        pref = 1
         if state1_reward > state2_reward:
-            pref = 1
+            pref = 0
 
         final_list.extend(state1)
         final_list.extend([state1_reward])
