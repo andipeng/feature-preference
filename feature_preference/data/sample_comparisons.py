@@ -49,6 +49,20 @@ def calculate_reward(state):
         rewards+=reward
     return rewards
 
+def calculate_feature_prefs(state1, state2):
+    feature_prefs = []
+    for feature in state1.keys():
+        index1 = state1[feature].index(1)
+        index2 = state2[feature].index(1)
+        reward1 = TRUE_REWARDS[feature][index1]
+        reward2 = TRUE_REWARDS[feature][index2]
+        
+        feature_pref = 1
+        if reward1 > reward2:
+            feature_pref = 0
+        feature_prefs.append(feature_pref)
+    return feature_prefs
+
 print("========================================")
 print("Sampling %d comparisons" % args.num_comparisons)
 print("========================================")
@@ -65,6 +79,7 @@ with open(args.save_file, 'w', newline='') as csv_file:
         state2 = random.sample(STATES, 1)
         state1_reward = calculate_reward(state1[0])
         state2_reward = calculate_reward(state2[0])
+        feature_prefs = calculate_feature_prefs(state1[0], state2[0])
         # flattens for writing
         state1 = flatten_state(state1)
         state2 = flatten_state(state2)
@@ -78,4 +93,5 @@ with open(args.save_file, 'w', newline='') as csv_file:
         final_list.extend(state2)
         final_list.extend([state2_reward])
         final_list.extend([pref])
+        final_list.extend(feature_prefs)
         csv_writer.writerow(final_list)
