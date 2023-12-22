@@ -1,7 +1,5 @@
-import os
 import numpy as np
 import argparse
-import pickle
 import random
 import csv
 import itertools
