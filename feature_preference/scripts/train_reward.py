@@ -2,7 +2,6 @@ import numpy as np
 import argparse
 import matplotlib.pyplot as plt
 import csv
-from tqdm import tqdm
 
 import torch
 import torch.optim as optim
@@ -15,8 +14,8 @@ parser.add_argument('--prefs_type', type=str, default='rlhf')
 parser.add_argument('--linear', type=bool, default=True)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
-parser.add_argument('--data_file', type=str, default='train_300')
-parser.add_argument('--epochs', type=int, default=1000)
+parser.add_argument('--data_file', type=str, default='train_20')
+parser.add_argument('--epochs', type=int, default=2000)
 parser.add_argument('--batch_size', type=int, default=10)
 
 args = parser.parse_args()
