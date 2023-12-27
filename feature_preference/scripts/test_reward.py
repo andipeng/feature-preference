@@ -7,11 +7,11 @@ import torch
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='rlhf')
-parser.add_argument('--linear', type=bool, default=True)
+parser.add_argument('--prefs_type', type=str, default='rlhf') # rlhfs or feature_prefs
+parser.add_argument('--linear', type=bool, default=False)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
-parser.add_argument('--test_network', type=str, default='train_100')
+parser.add_argument('--test_network', type=str, default='train_5')
 parser.add_argument('--test_set', type=str, default='test_50')
 parser.add_argument('--device', type=str, default='cpu')
 
@@ -24,7 +24,7 @@ with open(yaml_path, "r") as file:
 
 # Evaluate network on probability of gt reward
 
-network_path = '../results/' + args.env + '/' + args.reward + '/' + args.test_network + '.pt'
+network_path = '../results/' + args.env + '/' + args.reward + '/' + args.prefs_type + '_' + args.test_network + '.pt'
 reward_net = torch.load(network_path)
 reward_net.eval()
 
@@ -32,8 +32,14 @@ print("Evaluating " + args.test_network)
 probs = []
 # compute probability of network on best state
 for mushroom in config['best_mushroom']:
-    mushroom = torch.Tensor(mushroom).to(args.device)
-    pred_prob = torch.sigmoid(reward_net(mushroom)).cpu().detach().numpy()[0]
+
+    if args.prefs_type == 'rlhf':
+        mushroom = torch.Tensor(mushroom).to(args.device)
+        pred_prob = torch.sigmoid(reward_net(mushroom)).cpu().detach().numpy()[0]
+    elif args.prefs_type == 'feature_prefs':
+        mushroom = torch.unsqueeze(torch.Tensor(mushroom).to(args.device), dim=0)
+        _, _, _, _, _, _, pred_prob = reward_net(mushroom)
+        pred_prob = torch.sigmoid(pred_prob).cpu().detach().numpy()[0][0]
 
     probs.append(pred_prob)
     print('Probability: ', pred_prob)
@@ -61,14 +67,23 @@ with open(test_set_path) as file_obj:
 
 num_correct = 0.0
 for i in range(len(states1)):
-    mushroom1 = torch.Tensor(states1[i]).to(args.device)
-    mushroom2 = torch.Tensor(states2[i]).to(args.device)
-    pred_r1 = torch.sigmoid(reward_net(mushroom1)).cpu().detach().numpy()[0]
-    pred_r2 = torch.sigmoid(reward_net(mushroom2)).cpu().detach().numpy()[0]
 
-    if pred_r1 > pred_r2 and prefs[i] == 1:
+    if args.prefs_type == 'rlhf':
+        mushroom1 = torch.Tensor(states1[i]).to(args.device)
+        mushroom2 = torch.Tensor(states2[i]).to(args.device)
+        pred_prob1 = torch.sigmoid(reward_net(mushroom1)).cpu().detach().numpy()[0]
+        pred_prob2 = torch.sigmoid(reward_net(mushroom2)).cpu().detach().numpy()[0]
+    elif args.prefs_type == 'feature_prefs':
+        mushroom1 = torch.unsqueeze(torch.Tensor(states1[i]).to(args.device), dim=0)
+        mushroom2 = torch.unsqueeze(torch.Tensor(states2[i]).to(args.device), dim=0)
+        _, _, _, _, _, _, pred_prob1 = reward_net(mushroom1)
+        _, _, _, _, _, _, pred_prob2 = reward_net(mushroom2)
+        pred_prob1 = torch.sigmoid(pred_prob1).cpu().detach().numpy()[0][0]
+        pred_prob2 = torch.sigmoid(pred_prob2).cpu().detach().numpy()[0][0]
+
+    if pred_prob1 >= pred_prob2 and prefs[i] == 1:
         num_correct+=1
-    elif pred_r1 <= pred_r2 and prefs[i] == -1:
+    elif pred_prob1 < pred_prob2 and prefs[i] == -1:
         num_correct+=1
 
 accuracy = num_correct / len(states1)

@@ -33,8 +33,9 @@ def calculate_feature_prefs(state1, state2, true_reward):
         reward1 = true_reward[feature][index1]
         reward2 = true_reward[feature][index2]
         
+        # 1 if reward1 >= reward2, -1 otherwise
         feature_pref = 1
-        if reward1 > reward2:
-            feature_pref = 0
+        if reward2 > reward1:
+            feature_pref = -1
         feature_prefs.append(feature_pref)
     return feature_prefs
