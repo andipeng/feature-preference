@@ -4,13 +4,14 @@ import yaml
 import csv
 
 import torch
+from feature_preference.utils.mushroom_utils import calculate_best_mushroom
 
 ########################################################################
 parser = argparse.ArgumentParser()
 parser.add_argument('--prefs_type', type=str, default='rlhf') # rlhfs or feature_prefs
 parser.add_argument('--linear', type=bool, default=False)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--reward', type=str, default='reward1')
+parser.add_argument('--reward', type=str, default='reward3')
 parser.add_argument('--test_network', type=str, default='train_5')
 parser.add_argument('--test_set', type=str, default='test_50')
 parser.add_argument('--device', type=str, default='cpu')
@@ -30,14 +31,16 @@ reward_net.eval()
 
 print("Evaluating " + args.test_network)
 probs = []
+
+best_mushrooms, max_reward = calculate_best_mushroom(config['features'], config['true_reward'])
 # compute probability of network on best state
-for mushroom in config['best_mushroom']:
+for mushroom in best_mushrooms:
 
     if args.prefs_type == 'rlhf':
-        mushroom = torch.Tensor(mushroom).to(args.device)
+        mushroom = torch.Tensor(mushroom.tolist()).to(args.device)
         pred_prob = torch.sigmoid(reward_net(mushroom)).cpu().detach().numpy()[0]
     elif args.prefs_type == 'feature_prefs':
-        mushroom = torch.unsqueeze(torch.Tensor(mushroom).to(args.device), dim=0)
+        mushroom = torch.unsqueeze(torch.Tensor(mushroom.tolist()).to(args.device), dim=0)
         _, _, _, _, _, _, pred_prob = reward_net(mushroom)
         pred_prob = torch.sigmoid(pred_prob).cpu().detach().numpy()[0][0]
 
@@ -49,7 +52,7 @@ print('Average probability: ', sum(probs)/len(probs))
 ########################################################################
 
 # Evaluate network on accuracy of predicting correct comparison out of test set pair
-print("\nEvaluating accuracy on test set: ")
+print("\nAccuracy on test set: ")
 test_set_path = '../data/' + args.env + '/' + args.reward + '/' + args.test_set + '.csv'
 with open(test_set_path) as file_obj:
     reader_obj = csv.reader(file_obj)

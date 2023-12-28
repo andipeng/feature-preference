@@ -1,4 +1,3 @@
-import numpy as np
 import torch
 import torch.nn as nn
 
@@ -51,7 +50,7 @@ class FeaturePrefNetwork(nn.Module):
         self.reward = nn.Linear(num_features, 1)
 
     def forward(self, state):
-        # extracts all columns of each feature
+        # extracts each feature, output passed through linear reward
         feat1 = self.feat1(state[:,0:3])
         feat2 = self.feat2(state[:,3:6])
         feat3 = self.feat3(state[:,6:9])

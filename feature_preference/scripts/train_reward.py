@@ -10,15 +10,15 @@ from feature_preference.models.reward_networks import LinearRewardMLP, PairwiseL
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhf or feature_prefs
+parser.add_argument('--prefs_type', type=str, default='rlhf') # rlhf or feature_prefs
 parser.add_argument('--linear', type=bool, default=False)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--reward', type=str, default='reward1')
+parser.add_argument('--reward', type=str, default='reward3')
 parser.add_argument('--data_file', type=str, default='train_5')
-parser.add_argument('--epochs', type=int, default=2000)
+parser.add_argument('--epochs', type=int, default=3000)
 parser.add_argument('--batch_size', type=int, default=5)
-parser.add_argument('--alpha', type=int, default=0.3) # param for feature_weight
-parser.add_argument('--beta', type=int, default=0.7) # param for state_weight
+parser.add_argument('--alpha', type=float, default=0.3) # param for feature_weight (feature_prefs)
+parser.add_argument('--beta', type=float, default=0.7) # param for state_weight (feature_prefs)
 
 args = parser.parse_args()
 ########################################################################
