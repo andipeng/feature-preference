@@ -1,0 +1,63 @@
+Evaluating train_1
+Probability:  0.61510974
+Average probability:  0.6151097416877747
+
+Accuracy on test set: 
+Percent correct: 0.560000 
+
+Evaluating train_3
+Probability:  0.998833
+Average probability:  0.9988330006599426
+
+Accuracy on test set: 
+Percent correct: 0.720000 
+
+Evaluating train_5
+Probability:  1.0
+Average probability:  1.0
+
+Accuracy on test set: 
+Percent correct: 0.860000 
+
+Evaluating train_10
+Probability:  0.9999769
+Average probability:  0.9999768733978271
+
+Accuracy on test set: 
+Percent correct: 0.700000 
+
+Evaluating train_15
+Probability:  0.9999877
+Average probability:  0.9999877214431763
+
+Accuracy on test set: 
+Percent correct: 0.780000 
+
+Evaluating train_20
+Probability:  1.0
+Average probability:  1.0
+
+Accuracy on test set: 
+Percent correct: 0.940000 
+
+Evaluating train_30
+Probability:  1.0
+Average probability:  1.0
+
+Accuracy on test set: 
+Percent correct: 0.920000 
+
+Evaluating train_50
+Probability:  1.0
+Average probability:  1.0
+
+Accuracy on test set: 
+Percent correct: 0.880000 
+
+Evaluating train_100
+Probability:  1.0
+Average probability:  1.0
+
+Accuracy on test set: 
+Percent correct: 0.960000 
+
