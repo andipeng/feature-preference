@@ -52,7 +52,7 @@ print('Average probability: ', sum(probs)/len(probs))
 ########################################################################
 
 # Evaluate network on accuracy of predicting correct comparison out of test set pair
-print("\nAccuracy on test set: ")
+print("\nEvaluating accuracy on test set: ")
 test_set_path = '../data/' + args.env + '/' + args.reward + '/' + args.test_set + '.csv'
 with open(test_set_path) as file_obj:
     reader_obj = csv.reader(file_obj)
