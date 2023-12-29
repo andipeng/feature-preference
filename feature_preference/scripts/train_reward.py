@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--prefs_type', type=str, default='feature_prefs_human') # rlhf, feature_prefs, feature_prefs_human
 parser.add_argument('--linear', type=bool, default=False)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--reward', type=str, default='reward3')
+parser.add_argument('--reward', type=str, default='reward6')
 parser.add_argument('--data_file', type=str, default='train_10')
 parser.add_argument('--epochs', type=int, default=3000)
 parser.add_argument('--batch_size', type=int, default=5)

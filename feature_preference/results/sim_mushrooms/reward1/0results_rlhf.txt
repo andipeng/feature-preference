@@ -1,63 +1,63 @@
 Evaluating train_1
-Probability:  0.39830774
-Average probability:  0.398307740688324
+Probability:  0.7391536
+Average probability:  0.7391536235809326
 
 Accuracy on test set: 
 Percent correct: 0.560000 
 
 Evaluating train_3
-Probability:  0.87010425
-Average probability:  0.8701042532920837
+Probability:  0.80909014
+Average probability:  0.8090901374816895
 
 Accuracy on test set: 
-Percent correct: 0.580000 
+Percent correct: 0.660000 
 
 Evaluating train_5
-Probability:  0.19474359
-Average probability:  0.1947435885667801
+Probability:  0.686472
+Average probability:  0.6864719986915588
 
 Accuracy on test set: 
-Percent correct: 0.720000 
+Percent correct: 0.540000 
 
 Evaluating train_10
-Probability:  0.8745649
-Average probability:  0.8745648860931396
+Probability:  0.99069875
+Average probability:  0.9906987547874451
 
 Accuracy on test set: 
-Percent correct: 0.780000 
+Percent correct: 0.880000 
 
 Evaluating train_15
-Probability:  0.9985065
-Average probability:  0.998506486415863
+Probability:  0.9920959
+Average probability:  0.9920958876609802
 
 Accuracy on test set: 
-Percent correct: 0.860000 
+Percent correct: 0.800000 
 
 Evaluating train_20
-Probability:  0.999509
-Average probability:  0.9995089769363403
+Probability:  0.9999038
+Average probability:  0.9999037981033325
 
 Accuracy on test set: 
-Percent correct: 0.860000 
+Percent correct: 0.840000 
 
 Evaluating train_30
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.99999917
+Average probability:  0.9999991655349731
 
 Accuracy on test set: 
-Percent correct: 0.980000 
+Percent correct: 0.840000 
 
 Evaluating train_50
-Probability:  0.99999285
-Average probability:  0.999992847442627
+Probability:  0.99999034
+Average probability:  0.9999903440475464
 
 Accuracy on test set: 
-Percent correct: 0.920000 
+Percent correct: 1.000000 
 
 Evaluating train_100
-Probability:  0.9999795
-Average probability:  0.9999794960021973
+Probability:  0.99993646
+Average probability:  0.9999364614486694
 
 Accuracy on test set: 
-Percent correct: 0.940000 
+Percent correct: 0.960000 
 
