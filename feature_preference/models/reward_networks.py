@@ -10,9 +10,10 @@ def weight_init(m):
 # RLHF pairwise loss
 class PairwiseLoss(nn.Module):
     def forward(self, preds1, preds2, prefs, feature_maps=None):
+        import pdb; pdb.set_trace()
         outputs = (preds1 - preds2).view(-1)
         if feature_maps is not None:
-            loss = -torch.mean(torch.log(torch.sigmoid(outputs * prefs.view(-1) * feature_maps.view(-1))))
+            loss = -torch.mean(feature_maps.view(-1) * torch.log(torch.sigmoid(outputs * prefs.view(-1))))
         else:
             loss = -torch.mean(torch.log(torch.sigmoid(outputs * prefs.view(-1))))
         return loss
