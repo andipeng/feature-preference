@@ -1,62 +1,62 @@
 Evaluating train_1
-Probability:  0.5832118
-Average probability:  0.5832117795944214
+Probability:  0.6069788
+Average probability:  0.6069787740707397
 
 Accuracy on test set: 
 Percent correct: 0.600000 
 
 Evaluating train_3
-Probability:  0.7185194
-Average probability:  0.718519389629364
+Probability:  0.7055914
+Average probability:  0.7055913805961609
 
 Accuracy on test set: 
-Percent correct: 0.720000 
+Percent correct: 0.700000 
 
 Evaluating train_5
-Probability:  0.9820264
-Average probability:  0.9820263981819153
+Probability:  0.95405185
+Average probability:  0.9540518522262573
 
 Accuracy on test set: 
-Percent correct: 0.560000 
+Percent correct: 0.680000 
 
 Evaluating train_10
-Probability:  0.9903358
-Average probability:  0.9903358221054077
+Probability:  0.98909456
+Average probability:  0.9890945553779602
 
 Accuracy on test set: 
 Percent correct: 0.760000 
 
 Evaluating train_15
-Probability:  0.85682327
-Average probability:  0.8568232655525208
+Probability:  0.871355
+Average probability:  0.8713549971580505
 
 Accuracy on test set: 
-Percent correct: 0.640000 
+Percent correct: 0.680000 
 
 Evaluating train_20
-Probability:  0.9997408
-Average probability:  0.9997407793998718
+Probability:  0.9994894
+Average probability:  0.999489426612854
 
 Accuracy on test set: 
 Percent correct: 0.840000 
 
 Evaluating train_30
-Probability:  0.9999981
-Average probability:  0.9999980926513672
+Probability:  0.9999993
+Average probability:  0.9999992847442627
 
 Accuracy on test set: 
-Percent correct: 0.900000 
+Percent correct: 0.880000 
 
 Evaluating train_50
-Probability:  0.99996376
-Average probability:  0.9999637603759766
+Probability:  0.99998844
+Average probability:  0.9999884366989136
 
 Accuracy on test set: 
-Percent correct: 0.940000 
+Percent correct: 0.960000 
 
 Evaluating train_100
-Probability:  0.9999554
-Average probability:  0.999955415725708
+Probability:  0.9999733
+Average probability:  0.9999732971191406
 
 Accuracy on test set: 
 Percent correct: 0.900000 

@@ -70,10 +70,10 @@ for i in range(len(splitted_data)):
 out_file = '../results/sim_mushrooms/' + args.in_file + '/0results_parsed.txt'
 with open(out_file, 'w') as f:
     f.write("comparisons = {}\n".format(comparisons))
-    f.write("probs = {}\n".format(rlhf_probs))
-    f.write("correct = {}\n".format(rlhf_correct))
-    f.write("probs = {}\n".format(featureprefs_probs))
-    f.write("correct = {}\n".format(featureprefs_correct))
+    f.write("rlhf_probs = {}\n".format(rlhf_probs))
+    f.write("rlhf_correct = {}\n".format(rlhf_correct))
+    f.write("featureprefs_probs = {}\n".format(featureprefs_probs))
+    f.write("featureprefs_correct = {}\n".format(featureprefs_correct))
 
 # plots
 save_loc = '../results/sim_mushrooms/' + args.in_file
