@@ -8,10 +8,10 @@ from feature_preference.utils.mushroom_utils import calculate_best_mushroom
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='rlhf') # rlhfs or feature_prefs
+parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhfs, feature_prefs, feature_prefs_human
 parser.add_argument('--linear', type=bool, default=False)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--reward', type=str, default='reward3')
+parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--test_network', type=str, default='train_5')
 parser.add_argument('--test_set', type=str, default='test_50')
 parser.add_argument('--device', type=str, default='cpu')
@@ -39,7 +39,7 @@ for mushroom in best_mushrooms:
     if args.prefs_type == 'rlhf':
         mushroom = torch.Tensor(mushroom.tolist()).to(args.device)
         pred_prob = torch.sigmoid(reward_net(mushroom)).cpu().detach().numpy()[0]
-    elif args.prefs_type == 'feature_prefs':
+    else:
         mushroom = torch.unsqueeze(torch.Tensor(mushroom.tolist()).to(args.device), dim=0)
         _, _, _, _, _, _, pred_prob = reward_net(mushroom)
         pred_prob = torch.sigmoid(pred_prob).cpu().detach().numpy()[0][0]
@@ -76,7 +76,7 @@ for i in range(len(states1)):
         mushroom2 = torch.Tensor(states2[i]).to(args.device)
         pred_prob1 = torch.sigmoid(reward_net(mushroom1)).cpu().detach().numpy()[0]
         pred_prob2 = torch.sigmoid(reward_net(mushroom2)).cpu().detach().numpy()[0]
-    elif args.prefs_type == 'feature_prefs':
+    else:
         mushroom1 = torch.unsqueeze(torch.Tensor(states1[i]).to(args.device), dim=0)
         mushroom2 = torch.unsqueeze(torch.Tensor(states2[i]).to(args.device), dim=0)
         _, _, _, _, _, _, pred_prob1 = reward_net(mushroom1)

@@ -13,3 +13,5 @@ true_reward:
   height: [0, 0, 0]
   weight: [0, 0, 0]
   smell: [1, -2, 0]
+
+human_feature_map: [0,0,0,0,0,1]

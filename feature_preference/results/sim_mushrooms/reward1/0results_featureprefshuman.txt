@@ -1,0 +1,7 @@
+Evaluating train_5
+Probability:  0.98891735
+Average probability:  0.988917350769043
+
+Accuracy on test set: 
+Percent correct: 0.600000 
+
