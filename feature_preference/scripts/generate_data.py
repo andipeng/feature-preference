@@ -7,7 +7,7 @@ from feature_preference.utils.mushroom_utils import sample_state, flatten_state,
 ########################################################################
 parser = argparse.ArgumentParser()
 parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--config', type=str, default='reward3')
+parser.add_argument('--config', type=str, default='reward1')
 parser.add_argument('--num_comparisons', type=int, default=5)
 parser.add_argument('--test', type=bool, default=False)
 
@@ -52,11 +52,12 @@ with open(path_out, 'w', newline='') as csv_file:
         if state2_reward > state1_reward:
             pref = -1
 
-        # [state1, state1reward, state2, state2reward, pref, feature_prefs]
+        # [state1 (18), state1reward (1), state2 (18), state2reward (1), pref (1), feature_prefs (6), human_feature_map (6)]
         final_list.extend(state1)
         final_list.extend([state1_reward])
         final_list.extend(state2)
         final_list.extend([state2_reward])
         final_list.extend([pref])
         final_list.extend(feature_prefs)
+        final_list.extend(config['human_feature_map'])
         csv_writer.writerow(final_list)
