@@ -33,7 +33,7 @@ do
         python3 test_reward.py --prefs_type feature_prefs_human --reward $reward --test_network train_50 --seed $seed >> ../results/sim_mushrooms/$reward/$seed/0results_featureprefshuman.txt
         python3 test_reward.py --prefs_type feature_prefs_human --reward $reward --test_network train_100 --seed $seed >> ../results/sim_mushrooms/$reward/$seed/0results_featureprefshuman.txt
         python3 ../utils/parse_seed_results.py --reward $reward --seed $seed
-        )&
+        )
     done
     wait
     python3 ../utils/parse_results.py --reward $reward

@@ -13,8 +13,8 @@ Accuracy on test set:
 Percent correct: 0.660000 
 
 Evaluating train_5
-Probability:  0.08976228
-Average probability:  0.08976227790117264
+Probability:  0.08976226
+Average probability:  0.08976226300001144
 
 Accuracy on test set: 
 Percent correct: 0.420000 
@@ -53,4 +53,11 @@ Average probability:  1.0
 
 Accuracy on test set: 
 Percent correct: 0.860000 
+
+Evaluating train_100
+Probability:  1.0
+Average probability:  1.0
+
+Accuracy on test set: 
+Percent correct: 0.800000 
 
