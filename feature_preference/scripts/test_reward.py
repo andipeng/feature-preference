@@ -14,6 +14,7 @@ parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--test_network', type=str, default='train_1')
 parser.add_argument('--test_set', type=str, default='test_50')
+parser.add_argument('--seed', type=int, default=1)
 parser.add_argument('--device', type=str, default='cpu')
 
 args = parser.parse_args()
@@ -25,7 +26,7 @@ with open(yaml_path, "r") as file:
 
 # Evaluate network on probability of gt reward
 
-network_path = '../results/' + args.env + '/' + args.reward + '/' + args.prefs_type + '_' + args.test_network + '.pt'
+network_path = '../results/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.prefs_type + '_' + args.test_network + '.pt'
 reward_net = torch.load(network_path)
 reward_net.eval()
 

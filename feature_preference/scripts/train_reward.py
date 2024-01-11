@@ -13,10 +13,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--prefs_type', type=str, default='feature_prefs_human') # rlhf, feature_prefs, feature_prefs_human
 parser.add_argument('--linear', type=bool, default=False)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--reward', type=str, default='reward3')
+parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--data_file', type=str, default='train_1')
 parser.add_argument('--epochs', type=int, default=3000)
 parser.add_argument('--batch_size', type=int, default=1)
+parser.add_argument('--seed', type=int, default=1)
 parser.add_argument('--alpha', type=float, default=0.5) # param for feature_weight (feature_prefs)
 parser.add_argument('--beta', type=float, default=0.5) # param for state_weight (feature_prefs)
 
@@ -24,9 +25,9 @@ args = parser.parse_args()
 ########################################################################
 
 if args.prefs_type == 'feature_prefs_human':
-    data_file = '../data/' + args.env + '/' + args.reward + '/' + args.data_file + '_augment.csv'
+    data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '_augment.csv'
 else:
-    data_file = '../data/' + args.env + '/' + args.reward + '/' + args.data_file + '.csv'
+    data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '.csv'
 with open(data_file) as file_obj:
     reader_obj = csv.reader(file_obj)
 
@@ -112,8 +113,8 @@ for epoch in range(args.epochs):
             running_loss = 0.0
         losses.append(loss.item())
 
-save_file = '../results/' + args.env + '/' + args.reward + '/' + args.prefs_type + '_' + args.data_file + '.pt'
+save_file = '../results/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.prefs_type + '_' + args.data_file + '.pt'
 torch.save(reward_net, save_file)
 print('Finished Training')
 plt.plot(losses)
-plt.savefig('../results/' + args.env + '/' + args.reward + '/' + args.prefs_type + '_' + args.data_file + '_losses.png')
+plt.savefig('../results/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.prefs_type + '_' + args.data_file + '_losses.png')
