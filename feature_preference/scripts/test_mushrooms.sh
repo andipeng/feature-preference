@@ -35,5 +35,6 @@ do
         python3 ../utils/parse_seed_results.py --reward $reward --seed $seed
         )&
     done
+    wait
     python3 ../utils/parse_results.py --reward $reward
 done
