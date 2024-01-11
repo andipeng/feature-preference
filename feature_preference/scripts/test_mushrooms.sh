@@ -1,4 +1,4 @@
-for reward in reward3
+for reward in reward1 reward2 reward3 reward4 reward5 reward6
 do
     for seed in 1 2 3
     do
