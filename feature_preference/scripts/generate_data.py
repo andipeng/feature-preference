@@ -26,6 +26,7 @@ print("========================================")
 
 if args.test:
     path_out = '../data/' + args.env + '/' + args.config + '/test_' + str(args.num_comparisons) + '.csv'
+    path_out_augment = '../data/' + args.env + '/' + args.config + '/test_' + str(args.num_comparisons) + '_augment.csv'
 else:
     path_out = '../data/' + args.env + '/' + args.config + '/train_' + str(args.num_comparisons) + '.csv'
     path_out_augment = '../data/' + args.env + '/' + args.config + '/train_' + str(args.num_comparisons) + '_augment.csv'
