@@ -58,3 +58,14 @@ def calculate_best_mushroom(features, true_reward):
             best_mushrooms.append(flatten_state([mushroom]))
             max_rew = rew
     return best_mushrooms, max_rew
+
+def write_mushroom(state1, state1_reward, state2, state2_reward, pref, feature_prefs, feature_map):
+    final_list = []
+    final_list.extend(state1)
+    final_list.extend([state1_reward])
+    final_list.extend(state2)
+    final_list.extend([state2_reward])
+    final_list.extend([pref])
+    final_list.extend(feature_prefs)
+    final_list.extend(feature_map)
+    return final_list
