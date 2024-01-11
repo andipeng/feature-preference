@@ -8,11 +8,11 @@ from feature_preference.utils.mushroom_utils import calculate_best_mushroom
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhfs, feature_prefs, feature_prefs_human
+parser.add_argument('--prefs_type', type=str, default='feature_prefs_human') # rlhfs, feature_prefs, feature_prefs_human
 parser.add_argument('--linear', type=bool, default=False)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
-parser.add_argument('--test_network', type=str, default='train_5')
+parser.add_argument('--test_network', type=str, default='train_1')
 parser.add_argument('--test_set', type=str, default='test_50')
 parser.add_argument('--device', type=str, default='cpu')
 

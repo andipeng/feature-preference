@@ -7,7 +7,7 @@ from feature_preference.utils.mushroom_utils import sample_state, flatten_state,
 ########################################################################
 parser = argparse.ArgumentParser()
 parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--config', type=str, default='reward3')
+parser.add_argument('--config', type=str, default='reward5')
 parser.add_argument('--num_comparisons', type=int, default=1)
 parser.add_argument('--test', type=bool, default=False) # generate test set
 parser.add_argument('--augment', type=bool, default=True) # augment with non-relevant feature swapping
