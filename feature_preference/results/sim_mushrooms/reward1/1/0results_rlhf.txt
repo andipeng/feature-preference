@@ -1,62 +1,62 @@
 Evaluating train_1
-Probability:  0.6485478
-Average probability:  0.6485478281974792
+Probability:  0.49037588
+Average probability:  0.4903758764266968
 
 Accuracy on test set: 
-Percent correct: 0.680000 
+Percent correct: 0.560000 
 
 Evaluating train_3
-Probability:  0.8122316
-Average probability:  0.8122316002845764
+Probability:  0.7998651
+Average probability:  0.7998651266098022
 
 Accuracy on test set: 
-Percent correct: 0.500000 
+Percent correct: 0.520000 
 
 Evaluating train_5
-Probability:  0.948402
-Average probability:  0.9484019875526428
+Probability:  0.93100333
+Average probability:  0.9310033321380615
 
 Accuracy on test set: 
-Percent correct: 0.760000 
+Percent correct: 0.660000 
 
 Evaluating train_10
-Probability:  0.82513785
-Average probability:  0.8251378536224365
+Probability:  0.8032982
+Average probability:  0.8032981753349304
 
 Accuracy on test set: 
-Percent correct: 0.680000 
+Percent correct: 0.700000 
 
 Evaluating train_15
-Probability:  0.9988502
-Average probability:  0.9988502264022827
+Probability:  0.99563533
+Average probability:  0.9956353306770325
 
 Accuracy on test set: 
-Percent correct: 0.740000 
+Percent correct: 0.720000 
 
 Evaluating train_20
-Probability:  0.9999826
-Average probability:  0.9999825954437256
+Probability:  0.99997234
+Average probability:  0.9999723434448242
 
 Accuracy on test set: 
 Percent correct: 0.900000 
 
 Evaluating train_30
-Probability:  0.9999918
-Average probability:  0.999991774559021
+Probability:  0.99999356
+Average probability:  0.9999935626983643
 
 Accuracy on test set: 
 Percent correct: 0.820000 
 
 Evaluating train_50
-Probability:  0.9999889
-Average probability:  0.9999889135360718
+Probability:  0.9999924
+Average probability:  0.9999923706054688
 
 Accuracy on test set: 
 Percent correct: 0.920000 
 
 Evaluating train_100
-Probability:  0.9999927
-Average probability:  0.9999927282333374
+Probability:  0.9999846
+Average probability:  0.999984622001648
 
 Accuracy on test set: 
 Percent correct: 0.920000 

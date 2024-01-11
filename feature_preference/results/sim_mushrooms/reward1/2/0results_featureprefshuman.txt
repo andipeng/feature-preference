@@ -1,63 +1,63 @@
 Evaluating train_1
-Probability:  0.56148565
-Average probability:  0.5614856481552124
+Probability:  0.27169642
+Average probability:  0.27169641852378845
 
 Accuracy on test set: 
-Percent correct: 0.640000 
+Percent correct: 0.400000 
 
 Evaluating train_3
-Probability:  0.99979836
-Average probability:  0.9997983574867249
+Probability:  0.20060633
+Average probability:  0.2006063312292099
 
 Accuracy on test set: 
-Percent correct: 0.640000 
+Percent correct: 0.400000 
 
 Evaluating train_5
-Probability:  0.98353934
-Average probability:  0.983539342880249
+Probability:  0.32529664
+Average probability:  0.32529664039611816
 
 Accuracy on test set: 
-Percent correct: 0.740000 
+Percent correct: 0.380000 
 
 Evaluating train_10
-Probability:  0.9999982
-Average probability:  0.9999982118606567
+Probability:  0.84306
+Average probability:  0.8430600166320801
 
 Accuracy on test set: 
-Percent correct: 0.900000 
+Percent correct: 0.560000 
 
 Evaluating train_15
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.44641864
+Average probability:  0.4464186429977417
 
 Accuracy on test set: 
-Percent correct: 0.900000 
+Percent correct: 0.420000 
 
 Evaluating train_20
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.34282246
+Average probability:  0.34282246232032776
 
 Accuracy on test set: 
-Percent correct: 0.840000 
+Percent correct: 0.280000 
 
 Evaluating train_30
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.69435066
+Average probability:  0.6943506598472595
 
 Accuracy on test set: 
-Percent correct: 0.880000 
+Percent correct: 0.540000 
 
 Evaluating train_50
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.7570276
+Average probability:  0.7570276260375977
 
 Accuracy on test set: 
-Percent correct: 0.880000 
+Percent correct: 0.700000 
 
 Evaluating train_100
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.13019769
+Average probability:  0.1301976889371872
 
 Accuracy on test set: 
-Percent correct: 0.920000 
+Percent correct: 0.540000 
 

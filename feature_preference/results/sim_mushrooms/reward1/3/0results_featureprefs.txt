@@ -1,63 +1,63 @@
 Evaluating train_1
-Probability:  0.14989094
-Average probability:  0.1498909443616867
+Probability:  0.56913346
+Average probability:  0.569133460521698
 
 Accuracy on test set: 
-Percent correct: 0.620000 
+Percent correct: 0.660000 
 
 Evaluating train_3
-Probability:  0.99998045
-Average probability:  0.9999804496765137
+Probability:  0.8745003
+Average probability:  0.8745002746582031
 
 Accuracy on test set: 
-Percent correct: 0.800000 
+Percent correct: 0.720000 
 
 Evaluating train_5
-Probability:  0.9290491
-Average probability:  0.9290490746498108
+Probability:  0.40484527
+Average probability:  0.404845267534256
 
 Accuracy on test set: 
-Percent correct: 0.520000 
+Percent correct: 0.540000 
 
 Evaluating train_10
-Probability:  0.9999993
-Average probability:  0.9999992847442627
+Probability:  0.62071586
+Average probability:  0.620715856552124
 
 Accuracy on test set: 
-Percent correct: 0.700000 
+Percent correct: 0.420000 
 
 Evaluating train_15
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.41897514
+Average probability:  0.4189751446247101
 
 Accuracy on test set: 
-Percent correct: 0.980000 
+Percent correct: 0.440000 
 
 Evaluating train_20
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.013081252
+Average probability:  0.01308125164359808
 
 Accuracy on test set: 
-Percent correct: 0.860000 
+Percent correct: 0.320000 
 
 Evaluating train_30
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.09396393
+Average probability:  0.09396392852067947
 
 Accuracy on test set: 
-Percent correct: 0.880000 
+Percent correct: 0.420000 
 
 Evaluating train_50
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.03723823
+Average probability:  0.0372382290661335
 
 Accuracy on test set: 
-Percent correct: 0.960000 
+Percent correct: 0.460000 
 
 Evaluating train_100
-Probability:  1.0
-Average probability:  1.0
+Probability:  0.7612472
+Average probability:  0.7612472176551819
 
 Accuracy on test set: 
-Percent correct: 0.940000 
+Percent correct: 0.540000 
 
