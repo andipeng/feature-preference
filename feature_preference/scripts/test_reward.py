@@ -26,9 +26,8 @@ with open(yaml_path, "r") as file:
 # Evaluate network on probability of gt reward
 
 network_path = '../results/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.prefs_type + '_' + args.test_network + '.pt'
-reward_net = torch.load(network_path)
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-reward_net.to(device)
+device = torch.device('cpu')
+reward_net = torch.load(network_path, map_location=device)
 reward_net.eval()
 
 print("Evaluating " + args.test_network)
@@ -39,10 +38,10 @@ best_mushrooms, max_reward = calculate_best_mushroom(config['features'], config[
 for mushroom in best_mushrooms:
 
     if args.prefs_type == 'rlhf':
-        mushroom = torch.Tensor(mushroom.tolist()).to(args.device)
+        mushroom = torch.Tensor(mushroom.tolist()).to(device)
         pred_prob = torch.sigmoid(reward_net(mushroom)).cpu().detach().numpy()[0]
     else:
-        mushroom = torch.unsqueeze(torch.Tensor(mushroom.tolist()).to(args.device), dim=0)
+        mushroom = torch.unsqueeze(torch.Tensor(mushroom.tolist()).to(device), dim=0)
         _, _, _, _, _, _, pred_prob = reward_net(mushroom)
         pred_prob = torch.sigmoid(pred_prob).cpu().detach().numpy()[0][0]
 
@@ -74,13 +73,13 @@ num_correct = 0.0
 for i in range(len(states1)):
 
     if args.prefs_type == 'rlhf':
-        mushroom1 = torch.Tensor(states1[i]).to(args.device)
-        mushroom2 = torch.Tensor(states2[i]).to(args.device)
+        mushroom1 = torch.Tensor(states1[i]).to(device)
+        mushroom2 = torch.Tensor(states2[i]).to(device)
         pred_prob1 = torch.sigmoid(reward_net(mushroom1)).cpu().detach().numpy()[0]
         pred_prob2 = torch.sigmoid(reward_net(mushroom2)).cpu().detach().numpy()[0]
     else:
-        mushroom1 = torch.unsqueeze(torch.Tensor(states1[i]).to(args.device), dim=0)
-        mushroom2 = torch.unsqueeze(torch.Tensor(states2[i]).to(args.device), dim=0)
+        mushroom1 = torch.unsqueeze(torch.Tensor(states1[i]).to(device), dim=0)
+        mushroom2 = torch.unsqueeze(torch.Tensor(states2[i]).to(device), dim=0)
         _, _, _, _, _, _, pred_prob1 = reward_net(mushroom1)
         _, _, _, _, _, _, pred_prob2 = reward_net(mushroom2)
         pred_prob1 = torch.sigmoid(pred_prob1).cpu().detach().numpy()[0][0]

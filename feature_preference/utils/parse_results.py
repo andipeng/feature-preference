@@ -33,7 +33,7 @@ def plot(x, y1, y1_err, y2, y2_err, y3, y3_err, y_label, save_loc):
     # set x-ticks to be the comparison values
     ax.set_xticks(x_values)
     ax.set_xticklabels(x)
-    ax.yaxis.set_ticks(np.arange(0, 1, 0.2))
+    ax.yaxis.set_ticks(np.arange(0, 1.1, 0.2))
 
     ax.set_xlabel('Number of Comparisons')
     ax.set_ylabel(y_label)

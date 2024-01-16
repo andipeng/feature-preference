@@ -1,6 +1,6 @@
 Evaluating train_1
-Probability:  0.36569655
-Average probability:  0.3656965494155884
+Probability:  0.36569658
+Average probability:  0.36569657921791077
 
 Accuracy on test set: 
 Percent correct: 0.620000 

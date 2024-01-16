@@ -1,63 +1,63 @@
 Evaluating train_1
-Probability:  0.5489111
-Average probability:  0.5489110946655273
+Probability:  0.38770145
+Average probability:  0.38770145177841187
 
 Accuracy on test set: 
-Percent correct: 0.420000 
+Percent correct: 0.540000 
 
 Evaluating train_3
-Probability:  0.27123725
-Average probability:  0.27123725414276123
+Probability:  0.81157726
+Average probability:  0.8115772604942322
 
 Accuracy on test set: 
-Percent correct: 0.660000 
+Percent correct: 0.580000 
 
 Evaluating train_5
-Probability:  0.57015914
-Average probability:  0.5701591372489929
-
-Accuracy on test set: 
-Percent correct: 0.600000 
-
-Evaluating train_10
-Probability:  0.5051758
-Average probability:  0.5051758289337158
+Probability:  0.8358456
+Average probability:  0.8358455896377563
 
 Accuracy on test set: 
 Percent correct: 0.660000 
 
-Evaluating train_15
-Probability:  0.97438306
-Average probability:  0.9743830561637878
+Evaluating train_10
+Probability:  0.9935161
+Average probability:  0.9935160875320435
 
 Accuracy on test set: 
-Percent correct: 0.780000 
+Percent correct: 0.840000 
 
-Evaluating train_20
-Probability:  0.999337
-Average probability:  0.9993370175361633
+Evaluating train_15
+Probability:  0.9958846
+Average probability:  0.9958845973014832
 
 Accuracy on test set: 
 Percent correct: 0.800000 
 
-Evaluating train_30
-Probability:  0.99999595
-Average probability:  0.9999959468841553
+Evaluating train_20
+Probability:  0.9997991
+Average probability:  0.9997990727424622
 
 Accuracy on test set: 
-Percent correct: 0.920000 
+Percent correct: 0.860000 
+
+Evaluating train_30
+Probability:  0.9999999
+Average probability:  0.9999998807907104
+
+Accuracy on test set: 
+Percent correct: 0.840000 
 
 Evaluating train_50
-Probability:  0.9999653
-Average probability:  0.9999653100967407
+Probability:  0.9997472
+Average probability:  0.9997472167015076
 
 Accuracy on test set: 
-Percent correct: 0.900000 
+Percent correct: 0.880000 
 
 Evaluating train_100
-Probability:  0.999964
-Average probability:  0.9999639987945557
+Probability:  0.9999728
+Average probability:  0.9999728202819824
 
 Accuracy on test set: 
-Percent correct: 0.980000 
+Percent correct: 0.860000 
 
