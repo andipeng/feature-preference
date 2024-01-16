@@ -1,63 +1,63 @@
 Evaluating train_1
-Probability:  0.4887028
-Average probability:  0.48870280385017395
+Probability:  0.48809236
+Average probability:  0.4880923628807068
 
 Accuracy on test set: 
-Percent correct: 0.520000 
+Percent correct: 0.560000 
 
 Evaluating train_3
-Probability:  0.37974107
-Average probability:  0.3797410726547241
+Probability:  0.9990206
+Average probability:  0.9990205764770508
 
 Accuracy on test set: 
-Percent correct: 0.520000 
+Percent correct: 0.560000 
 
 Evaluating train_5
-Probability:  0.16046858
-Average probability:  0.16046857833862305
+Probability:  0.9994326
+Average probability:  0.9994326233863831
 
 Accuracy on test set: 
-Percent correct: 0.300000 
+Percent correct: 0.560000 
 
 Evaluating train_10
-Probability:  0.88688475
-Average probability:  0.8868847489356995
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.880000 
+Percent correct: 0.860000 
 
 Evaluating train_15
-Probability:  0.0906455
-Average probability:  0.09064549952745438
+Probability:  0.99999964
+Average probability:  0.9999996423721313
 
 Accuracy on test set: 
-Percent correct: 0.420000 
+Percent correct: 0.860000 
 
 Evaluating train_20
-Probability:  0.028485516
-Average probability:  0.02848551608622074
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.300000 
+Percent correct: 0.820000 
 
 Evaluating train_30
-Probability:  0.006656103
-Average probability:  0.0066561028361320496
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.400000 
+Percent correct: 0.860000 
 
 Evaluating train_50
-Probability:  0.04779722
-Average probability:  0.047797221690416336
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.300000 
+Percent correct: 0.860000 
 
 Evaluating train_100
-Probability:  0.8689165
-Average probability:  0.8689165115356445
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.700000 
+Percent correct: 0.860000 
 

@@ -1,63 +1,63 @@
 Evaluating train_1
-Probability:  0.6505627
-Average probability:  0.6505627036094666
+Probability:  0.36569655
+Average probability:  0.3656965494155884
 
 Accuracy on test set: 
-Percent correct: 0.320000 
+Percent correct: 0.620000 
 
 Evaluating train_3
-Probability:  0.3382645
-Average probability:  0.33826449513435364
+Probability:  0.98208874
+Average probability:  0.9820887446403503
 
 Accuracy on test set: 
-Percent correct: 0.400000 
+Percent correct: 0.460000 
 
 Evaluating train_5
-Probability:  0.3692387
-Average probability:  0.3692387044429779
+Probability:  0.99814045
+Average probability:  0.9981404542922974
 
 Accuracy on test set: 
-Percent correct: 0.360000 
+Percent correct: 0.680000 
 
 Evaluating train_10
-Probability:  0.7826323
-Average probability:  0.7826322913169861
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.880000 
+Percent correct: 0.900000 
 
 Evaluating train_15
-Probability:  0.88534456
-Average probability:  0.8853445649147034
+Probability:  0.99999976
+Average probability:  0.9999997615814209
 
 Accuracy on test set: 
-Percent correct: 0.660000 
+Percent correct: 0.820000 
 
 Evaluating train_20
-Probability:  0.033300687
-Average probability:  0.03330068662762642
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.420000 
+Percent correct: 0.820000 
 
 Evaluating train_30
-Probability:  0.89723134
-Average probability:  0.8972313404083252
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.400000 
+Percent correct: 0.860000 
 
 Evaluating train_50
-Probability:  0.93448436
-Average probability:  0.9344843626022339
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.640000 
+Percent correct: 0.840000 
 
 Evaluating train_100
-Probability:  0.31748298
-Average probability:  0.31748297810554504
+Probability:  1.0
+Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.540000 
+Percent correct: 0.860000 
 

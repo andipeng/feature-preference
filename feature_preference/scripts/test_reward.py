@@ -15,7 +15,6 @@ parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--test_network', type=str, default='train_1')
 parser.add_argument('--test_set', type=str, default='test_50')
 parser.add_argument('--seed', type=int, default=1)
-parser.add_argument('--device', type=str, default='cpu')
 
 args = parser.parse_args()
 
@@ -28,6 +27,8 @@ with open(yaml_path, "r") as file:
 
 network_path = '../results/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.prefs_type + '_' + args.test_network + '.pt'
 reward_net = torch.load(network_path)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+reward_net.to(device)
 reward_net.eval()
 
 print("Evaluating " + args.test_network)
