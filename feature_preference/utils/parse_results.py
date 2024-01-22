@@ -3,42 +3,17 @@ import matplotlib.pyplot as plt
 import ast
 import statistics
 import math
-import numpy as np
+
+from feature_preference.utils.mushroom_utils import calc_num_labels, plot_comparisons, plot_labels
 
 ########################################################################
 parser = argparse.ArgumentParser()
 parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--seeds', type=list, default=[1,2,3])
+parser.add_argument('--rel_features', type=int, default=3)
 
 args = parser.parse_args()
 ########################################################################
-
-# plotting code
-def plot(x, y1, y1_err, y2, y2_err, y3, y3_err, y_label, save_loc):
-    # create an index list for x-values
-    x_values = range(len(x))
-    y1, y1_err = np.array(y1), np.array(y1_err)
-    y2, y2_err = np.array(y2), np.array(y2_err)
-    y3, y3_err = np.array(y3), np.array(y3_err)
-
-    fig, ax = plt.subplots()
-    ax.fill_between(x_values, y1-y1_err, y1+y1_err, color='black', alpha=0.1)
-    ax.fill_between(x_values, y2-y2_err, y2+y2_err, color='green', alpha=0.1)
-    ax.fill_between(x_values, y3-y3_err, y3+y3_err, color='orange', alpha=0.1)
-
-    ax.plot(x_values, y1, marker='o', color='black', label='rlhf')
-    ax.plot(x_values, y2, marker='o', color='green', label='feature_prefs')
-    ax.plot(x_values, y3, marker='o', color='orange', label='feature_prefs_human')
-
-    # set x-ticks to be the comparison values
-    ax.set_xticks(x_values)
-    ax.set_xticklabels(x)
-    ax.yaxis.set_ticks(np.arange(0.5, 1.05, 0.1))
-
-    ax.set_xlabel('Number of Comparisons')
-    ax.set_ylabel(y_label)
-    ax.legend()
-    plt.savefig(save_loc + '/' + y_label + '.pdf')
 
 def standard_error(values):
     return statistics.stdev(values) / math.sqrt(len(values))
@@ -82,13 +57,26 @@ out_file = '../results/sim_mushrooms/' + args.reward + '/results.txt'
 with open(out_file, 'w') as f:
     f.write("comparisons = {}\n".format(comparisons))
     f.write("rlhf_probs = {}\n".format(rlhf_probs))
+    f.write("rlhf_probs_err = {}\n".format(rlhf_probs_err))
     f.write("rlhf_correct = {}\n".format(rlhf_correct))
+    f.write("rlhf_cor_err = {}\n".format(rlhf_cor_err))
     f.write("featureprefs_probs = {}\n".format(featureprefs_probs))
+    f.write("featureprefs_probs_err = {}\n".format(featureprefs_probs_err))
     f.write("featureprefs_correct = {}\n".format(featureprefs_correct))
+    f.write("featureprefs_cor_err = {}\n".format(featureprefs_cor_err))
     f.write("featureprefshuman_probs = {}\n".format(featureprefshuman_probs))
+    f.write("featureprefshuman_probs_err = {}\n".format(featureprefshuman_probs_err))
     f.write("featureprefshuman_correct = {}\n".format(featureprefshuman_correct))
+    f.write("featureprefshuman_cor_error = {}\n".format(featureprefshuman_cor_error))
+
+rlhf_labels = [1,3,5,10,15,20,30,50,100]
+featureprefs_labels = calc_num_labels(rlhf_labels, 6) # calculates all feature labels
+featureprefshuman_labels = calc_num_labels(rlhf_labels, args.rel_features) # calculates only human specified ones
 
 # plots
 save_loc = '../results/sim_mushrooms/' + args.reward
-plot(comparisons, rlhf_probs, rlhf_probs_err, featureprefs_probs, featureprefs_probs_err, featureprefshuman_probs, featureprefshuman_probs_err, 'prob_gt_reward', save_loc)
-plot(comparisons, rlhf_correct, rlhf_cor_err, featureprefs_correct, featureprefs_cor_err, featureprefshuman_correct, featureprefshuman_cor_error, 'accuracy_test_set', save_loc)
+plot_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err)
+plot_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_error)
+
+plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err)
+plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_error)

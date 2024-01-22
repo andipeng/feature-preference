@@ -6,13 +6,13 @@ import csv
 import torch
 import torch.optim as optim
 
-from feature_preference.models.reward_networks import LinearRewardMLP, PairwiseLoss, FeaturePrefNetwork
+from feature_preference.models.reward_networks import LinearRewardMLP, PairwiseLoss, FeaturePrefNetworkMushrooms, FeaturePrefNetworkFlights
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='feature_prefs_human') # rlhf, feature_prefs, feature_prefs_human
+parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhf, feature_prefs, feature_prefs_human
 parser.add_argument('--linear', type=bool, default=False)
-parser.add_argument('--env', type=str, default='sim_mushrooms')
+parser.add_argument('--env', type=str, default='flights')
 parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--data_file', type=str, default='train_1')
 parser.add_argument('--epochs', type=int, default=3000)
@@ -37,19 +37,23 @@ with open(data_file) as file_obj:
     feature_prefs = []
     feature_maps = []
     for row in reader_obj:
-        states1.append(row[0:18])
-        states2.append(row[19:37])
-        prefs.append([row[38]])
-        feature_prefs.append(row[39:45])
-        #if args.prefs_type == 'feature_prefs_human':
-        #    feature_maps.append(row[45:51])
-        #else:
-        feature_maps.append([1,1,1,1,1,1])
-    states1 = np.array(states1,dtype=int)
-    states2 = np.array(states2,dtype=int)
-    prefs = np.array(prefs,dtype=int)
-    feature_prefs = np.array(feature_prefs,dtype=int)
-    feature_maps = np.array(feature_maps,dtype=int)
+        if args.env == 'sim_mushrooms':
+            states1.append(row[0:18])
+            states2.append(row[19:37])
+            prefs.append([row[38]])
+            feature_prefs.append(row[39:45])
+            feature_maps.append([1,1,1,1,1,1])
+        elif args.env == 'flights':
+            states1.append(row[0:8])
+            states2.append(row[9:17])
+            prefs.append([row[18]])
+            feature_prefs.append(row[19:27])
+            feature_maps.append([1,1,1,1,1,1,1,1])
+    states1 = np.array(states1,dtype=float)
+    states2 = np.array(states2,dtype=float)
+    prefs = np.array(prefs,dtype=float)
+    feature_prefs = np.array(feature_prefs,dtype=float)
+    feature_maps = np.array(feature_maps,dtype=float)
 
 print("========================================")
 print("Loaded data from " + args.data_file)
@@ -59,7 +63,10 @@ print("========================================")
 if args.prefs_type == 'rlhf':
     reward_net = LinearRewardMLP(state_dim=len(states1[0]))
 else:
-    reward_net = FeaturePrefNetwork(feature_dim=3, num_features=6)
+    if args.env == 'sim_mushrooms':
+        reward_net = FeaturePrefNetworkMushrooms(feature_dim=3, num_features=6)
+    elif args.env == 'flights':
+        reward_net = FeaturePrefNetworkFlights(feature_dim=1, num_features=8)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 reward_net.to(device)
 
@@ -90,16 +97,30 @@ for epoch in range(args.epochs):
             loss = loss_fn(preds_r1, preds_r2, prefs)
         # joint loss between all features (potentially with augmented feature dataset)
         else:
-            preds_feat1a, preds_feat2a, preds_feat3a, preds_feat4a, preds_feat5a, preds_feat6a, preds_r1 = reward_net(states1)
-            preds_feat1b, preds_feat2b, preds_feat3b, preds_feat4b, preds_feat5b, preds_feat6b, preds_r2 = reward_net(states2)
-            loss_feat1 = loss_fn(preds_feat1a, preds_feat1b, feature_prefs[:,0], feature_maps[:,0])
-            loss_feat2 = loss_fn(preds_feat2a, preds_feat2b, feature_prefs[:,1], feature_maps[:,1])
-            loss_feat3 = loss_fn(preds_feat3a, preds_feat3b, feature_prefs[:,2], feature_maps[:,2])
-            loss_feat4 = loss_fn(preds_feat4a, preds_feat4b, feature_prefs[:,3], feature_maps[:,3])
-            loss_feat5 = loss_fn(preds_feat5a, preds_feat5b, feature_prefs[:,4], feature_maps[:,4])
-            loss_feat6 = loss_fn(preds_feat6a, preds_feat6b, feature_prefs[:,5], feature_maps[:,5])
+            if args.env == 'sim_mushrooms':
+                preds_feat1a, preds_feat2a, preds_feat3a, preds_feat4a, preds_feat5a, preds_feat6a, preds_r1 = reward_net(states1)
+                preds_feat1b, preds_feat2b, preds_feat3b, preds_feat4b, preds_feat5b, preds_feat6b, preds_r2 = reward_net(states2)
+                loss_feat1 = loss_fn(preds_feat1a, preds_feat1b, feature_prefs[:,0], feature_maps[:,0])
+                loss_feat2 = loss_fn(preds_feat2a, preds_feat2b, feature_prefs[:,1], feature_maps[:,1])
+                loss_feat3 = loss_fn(preds_feat3a, preds_feat3b, feature_prefs[:,2], feature_maps[:,2])
+                loss_feat4 = loss_fn(preds_feat4a, preds_feat4b, feature_prefs[:,3], feature_maps[:,3])
+                loss_feat5 = loss_fn(preds_feat5a, preds_feat5b, feature_prefs[:,4], feature_maps[:,4])
+                loss_feat6 = loss_fn(preds_feat6a, preds_feat6b, feature_prefs[:,5], feature_maps[:,5])
 
-            loss = args.alpha*(loss_feat1+loss_feat2+loss_feat3+loss_feat4+loss_feat5+loss_feat6) + args.beta*loss_fn(preds_r1, preds_r2, prefs)
+                loss = args.alpha*(loss_feat1+loss_feat2+loss_feat3+loss_feat4+loss_feat5+loss_feat6) + args.beta*loss_fn(preds_r1, preds_r2, prefs)
+            elif args.env == 'flights':
+                preds_feat1a, preds_feat2a, preds_feat3a, preds_feat4a, preds_feat5a, preds_feat6a, preds_feat7a, preds_feat8a, preds_r1 = reward_net(states1)
+                preds_feat1b, preds_feat2b, preds_feat3b, preds_feat4b, preds_feat5b, preds_feat6b, preds_feat7b, preds_feat8b, preds_r2 = reward_net(states2)
+                loss_feat1 = loss_fn(preds_feat1a, preds_feat1b, feature_prefs[:,0], feature_maps[:,0])
+                loss_feat2 = loss_fn(preds_feat2a, preds_feat2b, feature_prefs[:,1], feature_maps[:,1])
+                loss_feat3 = loss_fn(preds_feat3a, preds_feat3b, feature_prefs[:,2], feature_maps[:,2])
+                loss_feat4 = loss_fn(preds_feat4a, preds_feat4b, feature_prefs[:,3], feature_maps[:,3])
+                loss_feat5 = loss_fn(preds_feat5a, preds_feat5b, feature_prefs[:,4], feature_maps[:,4])
+                loss_feat6 = loss_fn(preds_feat6a, preds_feat6b, feature_prefs[:,5], feature_maps[:,5])
+                loss_feat7 = loss_fn(preds_feat7a, preds_feat7b, feature_prefs[:,6], feature_maps[:,6])
+                loss_feat8 = loss_fn(preds_feat8a, preds_feat8b, feature_prefs[:,7], feature_maps[:,7])
+
+                loss = args.alpha*(loss_feat1+loss_feat2+loss_feat3+loss_feat4+loss_feat5+loss_feat6+loss_feat7+loss_feat8) + args.beta*loss_fn(preds_r1, preds_r2, prefs)
 
         loss.backward()
         optimizer.step()

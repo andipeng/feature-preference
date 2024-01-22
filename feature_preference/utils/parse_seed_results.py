@@ -2,36 +2,20 @@ import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 
+from feature_preference.utils.mushroom_utils import calc_num_labels, plot_comparisons, plot_labels
+
 ########################################################################
 parser = argparse.ArgumentParser()
+parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--seed', type=int, default=1)
+parser.add_argument('--rel_features', type=int, default=1)
 
 args = parser.parse_args()
 ########################################################################
 
-# plotting code
-def plot(x, y1, y2, y3, y_label, save_loc):
-    # create an index list for x-values
-    x_values = range(len(x))
-
-    fig, ax = plt.subplots()
-    ax.plot(x_values, y1, marker='o', color='black', label='rlhf')
-    ax.plot(x_values, y2, marker='o', color='green', label='feature_prefs')
-    ax.plot(x_values, y3, marker='o', color='orange', label='feature_prefs_human')
-
-    # set x-ticks to be the comparison values
-    ax.set_xticks(x_values)
-    ax.set_xticklabels(x)
-    ax.yaxis.set_ticks(np.arange(0.5, 1.05, 0.1))
-
-    ax.set_xlabel('Number of Comparisons')
-    ax.set_ylabel(y_label)
-    ax.legend()
-    plt.savefig(save_loc + '/0' + y_label + '.pdf')
-
 # parses seed results
-in_file = '../results/sim_mushrooms/' + args.reward + '/' + str(args.seed) + '/0results_rlhf.txt'
+in_file = '../results/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/0results_rlhf.txt'
 with open(in_file, 'r') as f:
     file_data= f.read()
 
@@ -101,7 +85,14 @@ with open(out_file, 'w') as f:
     f.write("featureprefshuman_probs = {}\n".format(featureprefshuman_probs))
     f.write("featureprefshuman_correct = {}\n".format(featureprefshuman_correct))
 
+rlhf_labels = [1,3,5,10,15,20,30,50,100]
+featureprefs_labels = calc_num_labels(rlhf_labels, 6) # calculates all feature labels
+featureprefshuman_labels = calc_num_labels(rlhf_labels, args.rel_features) # calculates only human specified ones
+
 # plots
 save_loc = '../results/sim_mushrooms/' + args.reward + '/' + str(args.seed)
-plot(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc)
-plot(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc)
+plot_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc)
+plot_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc)
+
+plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc)
+plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc)

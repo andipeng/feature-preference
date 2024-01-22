@@ -1,0 +1,48 @@
+Evaluating train_1
+Probability:  0.99396485
+Probability:  0.99825114
+Probability:  0.9994948
+Probability:  0.9998542
+Probability:  0.9999579
+Probability:  0.9940392
+Probability:  0.9982728
+Probability:  0.999501
+Probability:  0.999856
+Probability:  0.9999584
+Average probability:  0.9983150243759156
+Evaluating train_3
+Probability:  0.9999938
+Probability:  0.9999931
+Probability:  0.99999225
+Probability:  0.9999913
+Probability:  0.9999902
+Probability:  0.99934345
+Probability:  0.9992636
+Probability:  0.9991738
+Probability:  0.9990734
+Probability:  0.9989606
+Average probability:  0.9995775520801544
+Evaluating train_5
+Probability:  0.9999987
+Probability:  0.9999987
+Probability:  0.9999987
+Probability:  0.9999987
+Probability:  0.9999987
+Probability:  0.99999726
+Probability:  0.99999726
+Probability:  0.9999974
+Probability:  0.9999974
+Probability:  0.9999974
+Average probability:  0.9999980092048645
+Evaluating train_10
+Probability:  0.99921787
+Probability:  0.9971541
+Probability:  0.98970187
+Probability:  0.96345
+Probability:  0.8784925
+Probability:  0.9983296
+Probability:  0.9939365
+Probability:  0.97824174
+Probability:  0.9249898
+Probability:  0.7718087
+Average probability:  0.9495322644710541

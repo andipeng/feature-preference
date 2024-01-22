@@ -1,6 +1,69 @@
 import random
 import numpy as np
 import itertools
+import matplotlib.pyplot as plt
+
+# plotting code
+def plot_comparisons(x, y1, y2, y3, y_label, save_loc, y1_err=None, y2_err=None, y3_err=None):
+    # create an index list for x-values
+    x_values = range(len(x))
+    y1 = np.array(y1)
+    y2 = np.array(y2)
+    y3 = np.array(y3)
+
+    fig, ax = plt.subplots()
+    # add std err if over multiple seeds
+    if y1_err is not None:
+        y1_err = np.array(y1_err)
+        y2_err = np.array(y2_err)
+        y3_err = np.array(y3_err)
+        ax.fill_between(x_values, y1-y1_err, y1+y1_err, color='black', alpha=0.1)
+        ax.fill_between(x_values, y2-y2_err, y2+y2_err, color='green', alpha=0.1)
+        ax.fill_between(x_values, y3-y3_err, y3+y3_err, color='orange', alpha=0.1)
+    ax.plot(x_values, y1, marker='o', color='black', label='rlhf')
+    ax.plot(x_values, y2, marker='o', color='green', label='feature_prefs')
+    ax.plot(x_values, y3, marker='o', color='orange', label='feature_prefs_human')
+
+    # set x-ticks to be the comparison values
+    ax.set_xticks(x_values)
+    ax.set_xticklabels(x)
+    ax.yaxis.set_ticks(np.arange(0.5, 1.05, 0.1))
+
+    ax.set_xlabel('Number of Comparisons')
+    ax.set_ylabel(y_label)
+    ax.legend()
+    plt.savefig(save_loc + '/0' + y_label + '_comparisons.pdf')
+
+def plot_labels(x1, x2, x3, y1, y2, y3, y_label, save_loc, y1_err=None, y2_err=None, y3_err=None):
+    y1 = np.array(y1)
+    y2 = np.array(y2)
+    y3 = np.array(y3)
+
+    fig, ax = plt.subplots()
+    if y1_err is not None:
+        y1_err = np.array(y1_err)
+        y2_err = np.array(y2_err)
+        y3_err = np.array(y3_err)
+        ax.fill_between(x1, y1-y1_err, y1+y1_err, color='black', alpha=0.1)
+        ax.fill_between(x2, y2-y2_err, y2+y2_err, color='green', alpha=0.1)
+        ax.fill_between(x3, y3-y3_err, y3+y3_err, color='orange', alpha=0.1)
+
+    ax.plot(x1, y1, marker='o', color='black', label='rlhf')
+    ax.plot(x2, y2, marker='o', color='green', label='feature_prefs')
+    ax.plot(x3, y3, marker='o', color='orange', label='feature_prefs_human')
+
+    ax.yaxis.set_ticks(np.arange(0.5, 1.05, 0.1))
+    ax.set_xlim([0, 50])
+
+    ax.set_xlabel('Number of Labels')
+    ax.set_ylabel(y_label)
+    ax.legend()
+    plt.savefig(save_loc + '/0' + y_label + '_labels.pdf')
+
+def calc_num_labels(list, features):
+    feature_labels = [i * features for i in list]
+    tot_labels = [x + y for x, y in zip(list, feature_labels)]
+    return tot_labels
 
 def sample_state(features):
     state = {}

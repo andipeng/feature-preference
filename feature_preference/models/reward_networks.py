@@ -40,7 +40,7 @@ class RewardMLP(nn.Module):
         rew = self.reward(state)
         return rew
 
-class FeaturePrefNetwork(nn.Module):
+class FeaturePrefNetworkMushrooms(nn.Module):
     def __init__(
         self, feature_dim, num_features):
         super().__init__()
@@ -64,6 +64,34 @@ class FeaturePrefNetwork(nn.Module):
         rew = self.reward(comp)
         return feat1, feat2, feat3, feat4, feat5, feat6, rew
 
+class FeaturePrefNetworkFlights(nn.Module):
+    def __init__(
+        self, feature_dim, num_features):
+        super().__init__()
+        self.feat1 = nn.Linear(feature_dim, 1)
+        self.feat2 = nn.Linear(feature_dim, 1)
+        self.feat3 = nn.Linear(feature_dim, 1)
+        self.feat4 = nn.Linear(feature_dim, 1)
+        self.feat5 = nn.Linear(feature_dim, 1)
+        self.feat6 = nn.Linear(feature_dim, 1)
+        self.feat7 = nn.Linear(feature_dim, 1)
+        self.feat8 = nn.Linear(feature_dim, 1)
+        self.reward = nn.Linear(num_features, 1)
+
+    def forward(self, state):
+        # extracts each feature, output passed through linear reward
+        feat1 = self.feat1(state[:,0].unsqueeze(1))
+        feat2 = self.feat2(state[:,1].unsqueeze(1))
+        feat3 = self.feat3(state[:,2].unsqueeze(1))
+        feat4 = self.feat4(state[:,3].unsqueeze(1))
+        feat5 = self.feat5(state[:,4].unsqueeze(1))
+        feat6 = self.feat6(state[:,5].unsqueeze(1))
+        feat7 = self.feat7(state[:,6].unsqueeze(1))
+        feat8 = self.feat8(state[:,7].unsqueeze(1))
+        comp = torch.cat((feat1, feat2, feat3, feat4, feat5, feat6, feat7, feat8), dim=1)
+        rew = self.reward(comp)
+        return feat1, feat2, feat3, feat4, feat5, feat6, feat7, feat8, rew
+    
 # preference network
 class PreferenceMLP(nn.Module):
     def __init__(
