@@ -8,6 +8,7 @@ from feature_preference.utils.mushroom_utils import calc_num_labels, plot_compar
 
 ########################################################################
 parser = argparse.ArgumentParser()
+parser.add_argument('--env', type=str, default='flights')
 parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--seeds', type=list, default=[1,2,3])
 parser.add_argument('--rel_features', type=int, default=3)
@@ -38,7 +39,7 @@ def parse_file(filename):
 # Assuming the files are named file1.py, file2.py, file3.py
 files = []
 for seed in args.seeds:
-    filename = '../results/sim_mushrooms/' + args.reward + '/' + str(seed) + '/0results_parsed.txt'
+    filename = '../results/'  + args.env + '/' + args.reward + '/' + str(seed) + '/0results_parsed.txt'
     files.append(filename)
 
 # Parse each file and get the average of the lists
@@ -53,7 +54,7 @@ featureprefshuman_probs, featureprefshuman_probs_err = calc_avg(*[parse_file(fil
 featureprefshuman_correct, featureprefshuman_cor_error = calc_avg(*[parse_file(file)['featureprefshuman_correct'] for file in files])
 
 # saves as processed file
-out_file = '../results/sim_mushrooms/' + args.reward + '/results.txt'
+out_file = '../results/'  + args.env + '/' + args.reward + '/results.txt'
 with open(out_file, 'w') as f:
     f.write("comparisons = {}\n".format(comparisons))
     f.write("rlhf_probs = {}\n".format(rlhf_probs))
@@ -69,12 +70,15 @@ with open(out_file, 'w') as f:
     f.write("featureprefshuman_correct = {}\n".format(featureprefshuman_correct))
     f.write("featureprefshuman_cor_error = {}\n".format(featureprefshuman_cor_error))
 
-rlhf_labels = [1,3,5,10,15,20,30,50,100]
+if args.env == 'sim_mushrooms':
+    rlhf_labels = [1,3,5,10,15,20,30,50,100]
+elif args.env == 'flights':
+    rlhf_labels = [1,3,5,10]
 featureprefs_labels = calc_num_labels(rlhf_labels, 6) # calculates all feature labels
 featureprefshuman_labels = calc_num_labels(rlhf_labels, args.rel_features) # calculates only human specified ones
 
 # plots
-save_loc = '../results/sim_mushrooms/' + args.reward
+save_loc = '../results/'  + args.env + '/' + args.reward
 plot_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err)
 plot_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_error)
 

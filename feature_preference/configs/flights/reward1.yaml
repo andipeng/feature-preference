@@ -1,3 +1,13 @@
+features:
+  arrival_time: [1]
+  american: [0,1]
+  delta: [0,1]
+  jetblue: [0,1]
+  southwest: [0,1]
+  longest_stop: [1]
+  num_stops: [0]
+  price: [1]
+
 true_reward: [0.5, 0.5, 0.5, -0.5, 0, 0.5, 0, 0]
 
 human_feature_map: [1,1,1,1,0,1,0,0]

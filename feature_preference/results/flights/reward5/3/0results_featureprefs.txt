@@ -1,48 +1,64 @@
 Evaluating train_1
-Probability:  0.80441844
-Probability:  0.6149616
-Probability:  0.38279343
-Probability:  0.1940926
-Probability:  0.085523635
-Probability:  0.8079493
-Probability:  0.6202984
-Probability:  0.38814643
-Probability:  0.19765182
-Probability:  0.08730767
-Average probability:  0.4183143340051174
+Probability:  0.08665654
+Probability:  0.13056841
+Probability:  0.19205302
+Probability:  0.27338663
+Probability:  0.3732521
+Probability:  0.103749916
+Probability:  0.15485503
+Probability:  0.2248189
+Probability:  0.31462514
+Probability:  0.42083004
+Average probability:  0.2274795725941658
+
+Accuracy on test set: 
+Percent correct: 0.740000 
+
 Evaluating train_3
-Probability:  0.99857295
-Probability:  0.99861217
-Probability:  0.9986504
-Probability:  0.9986873
-Probability:  0.99872345
-Probability:  0.970311
-Probability:  0.9711039
-Probability:  0.97187626
-Probability:  0.97262853
-Probability:  0.9733613
-Average probability:  0.9852527260780335
+Probability:  0.106495306
+Probability:  0.3152857
+Probability:  0.6401477
+Probability:  0.8729762
+Probability:  0.96370345
+Probability:  0.0020287896
+Probability:  0.0077926056
+Probability:  0.029448258
+Probability:  0.104921274
+Probability:  0.31170216
+Average probability:  0.33545014306437226
+
+Accuracy on test set: 
+Percent correct: 0.660000 
+
 Evaluating train_5
-Probability:  0.9999045
-Probability:  0.99988794
-Probability:  0.9998684
-Probability:  0.9998455
-Probability:  0.9998186
-Probability:  0.9999039
-Probability:  0.9998871
-Probability:  0.99986744
-Probability:  0.99984443
-Probability:  0.99981743
-Average probability:  0.9998645305633544
+Probability:  0.9999964
+Probability:  0.9999788
+Probability:  0.99987304
+Probability:  0.99924004
+Probability:  0.9954666
+Probability:  0.99900705
+Probability:  0.9940832
+Probability:  0.96558726
+Probability:  0.8241303
+Probability:  0.43901977
+Average probability:  0.9216382473707199
+
+Accuracy on test set: 
+Percent correct: 0.740000 
+
 Evaluating train_10
-Probability:  0.99996555
-Probability:  0.9999492
-Probability:  0.99992526
-Probability:  0.99988985
-Probability:  0.99983764
-Probability:  0.99998844
-Probability:  0.99998283
-Probability:  0.9999747
-Probability:  0.9999628
-Probability:  0.99994516
-Average probability:  0.999942147731781
+Probability:  0.99906343
+Probability:  0.9978956
+Probability:  0.99527884
+Probability:  0.98944247
+Probability:  0.97656107
+Probability:  0.9644483
+Probability:  0.9234309
+Probability:  0.8428034
+Probability:  0.7044483
+Probability:  0.5144722
+Average probability:  0.8907844483852386
+
+Accuracy on test set: 
+Percent correct: 0.840000 
+

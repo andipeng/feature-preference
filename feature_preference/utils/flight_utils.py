@@ -1,4 +1,5 @@
 import itertools
+import random
 
 # calculates state reward based on ground truth rewards
 def calculate_reward(state, true_reward):
@@ -31,6 +32,16 @@ def calculate_best_flight(true_reward):
     best_flights = list(itertools.product(arrival_time, american, delta, jetblue, southwest, longest_stop, num_stops, price))
         
     return best_flights
+
+def sample_state(features):
+    state = []
+    for feature in features:
+        if len(features[feature]) == 1: # continuous sampled between 0 and specified range
+            sampled_feature = round(random.uniform(0, features[feature][0]), 2)
+        else: # otherwise samples from discrete values
+            sampled_feature = random.sample(features[feature], 1)[0]
+        state.append(sampled_feature)
+    return state
 
 # returns possible values for each feature according to reward
 def possible_feature_values(reward_weight, feature_type):
