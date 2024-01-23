@@ -1,108 +1,108 @@
 Evaluating train_1
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  0.99999976
-Probability:  0.99999857
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  0.99999976
-Probability:  0.9999987
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  0.99999976
-Probability:  0.9999987
-Probability:  1.0
-Probability:  1.0
-Probability:  1.0
-Probability:  0.99999976
-Probability:  0.9999987
-Probability:  0.9999981
-Probability:  0.99999
-Probability:  0.9999473
-Probability:  0.99972147
-Probability:  0.99852884
-Probability:  0.9999982
-Probability:  0.9999906
-Probability:  0.9999503
-Probability:  0.9997371
-Probability:  0.9986112
-Probability:  0.9999982
-Probability:  0.9999906
-Probability:  0.99994993
-Probability:  0.9997352
-Probability:  0.9986009
-Probability:  0.99999833
-Probability:  0.99999106
-Probability:  0.9999527
-Probability:  0.9997501
-Probability:  0.9986792
-Probability:  0.9980313
-Probability:  0.98967427
-Probability:  0.9477003
-Probability:  0.77405524
-Probability:  0.3930899
-Probability:  0.9981415
-Probability:  0.9902473
-Probability:  0.9504862
-Probability:  0.7839825
-Probability:  0.40693077
-Probability:  0.99812764
-Probability:  0.9901754
-Probability:  0.95013607
-Probability:  0.78272396
-Probability:  0.40514234
-Probability:  0.9982324
-Probability:  0.990721
-Probability:  0.95279866
-Probability:  0.79237247
-Probability:  0.41911456
-Probability:  0.3260327
-Probability:  0.0837942
-Probability:  0.016997017
-Probability:  0.0032583538
-Probability:  0.0006176538
-Probability:  0.33883065
-Probability:  0.08832964
-Probability:  0.01798798
-Probability:  0.0034511348
-Probability:  0.00065429986
-Probability:  0.33717132
-Probability:  0.08773429
-Probability:  0.017857451
-Probability:  0.003425724
-Probability:  0.00064946886
-Probability:  0.35017934
-Probability:  0.09246146
-Probability:  0.018897614
-Probability:  0.0036283715
-Probability:  0.00068800134
-Average probability:  0.7829764347476885
+Probability:  9.424541e-05
+Probability:  1.9710467e-05
+Probability:  4.1220037e-06
+Probability:  8.6201436e-07
+Probability:  1.8026834e-07
+Probability:  8.325879e-05
+Probability:  1.7412589e-05
+Probability:  3.6414438e-06
+Probability:  7.615177e-07
+Probability:  1.5925187e-07
+Probability:  0.00011771563
+Probability:  2.4619478e-05
+Probability:  5.148634e-06
+Probability:  1.0767093e-06
+Probability:  2.2516637e-07
+Probability:  0.00010399325
+Probability:  2.1749314e-05
+Probability:  4.548386e-06
+Probability:  9.511828e-07
+Probability:  1.9891549e-07
+Probability:  9.569203e-07
+Probability:  2.0011552e-07
+Probability:  4.1849045e-08
+Probability:  8.751648e-09
+Probability:  1.8301815e-09
+Probability:  8.453592e-07
+Probability:  1.7678519e-07
+Probability:  3.6970135e-08
+Probability:  7.731351e-09
+Probability:  1.6168125e-09
+Probability:  1.1952527e-06
+Probability:  2.4995674e-07
+Probability:  5.2272057e-08
+Probability:  1.0931354e-08
+Probability:  2.2860105e-09
+Probability:  1.055906e-06
+Probability:  2.2081568e-07
+Probability:  4.6177995e-08
+Probability:  9.656937e-09
+Probability:  2.0194992e-09
+Probability:  9.715206e-09
+Probability:  2.0316846e-09
+Probability:  4.248744e-10
+Probability:  8.88517e-11
+Probability:  1.858104e-11
+Probability:  8.582573e-09
+Probability:  1.7948236e-09
+Probability:  3.7534104e-10
+Probability:  7.849289e-11
+Probability:  1.6414795e-11
+Probability:  1.21348975e-08
+Probability:  2.5377007e-09
+Probability:  5.306946e-10
+Probability:  1.109813e-10
+Probability:  2.3208874e-11
+Probability:  1.0720167e-08
+Probability:  2.2418463e-09
+Probability:  4.688243e-10
+Probability:  9.8042505e-11
+Probability:  2.0503101e-11
+Probability:  9.863409e-11
+Probability:  2.0626814e-11
+Probability:  4.3135656e-12
+Probability:  9.020727e-13
+Probability:  1.8864521e-13
+Probability:  8.713497e-11
+Probability:  1.8222032e-11
+Probability:  3.810675e-12
+Probability:  7.969043e-13
+Probability:  1.666523e-13
+Probability:  1.2320012e-10
+Probability:  2.5764176e-11
+Probability:  5.387912e-12
+Probability:  1.126745e-12
+Probability:  2.3562963e-13
+Probability:  1.08837e-10
+Probability:  2.276045e-11
+Probability:  4.7597703e-12
+Probability:  9.953831e-13
+Probability:  2.0815909e-13
+Probability:  1.0013872e-12
+Probability:  2.094143e-13
+Probability:  4.379368e-14
+Probability:  9.158335e-15
+Probability:  1.9152296e-15
+Probability:  8.8464197e-13
+Probability:  1.8500003e-13
+Probability:  3.8688057e-14
+Probability:  8.090593e-15
+Probability:  1.6919452e-15
+Probability:  1.2507949e-12
+Probability:  2.6157147e-13
+Probability:  5.4701032e-14
+Probability:  1.1439287e-14
+Probability:  2.3922408e-15
+Probability:  1.1049728e-12
+Probability:  2.3107655e-13
+Probability:  4.832379e-14
+Probability:  1.0105693e-14
+Probability:  2.1133449e-15
+Average probability:  5.097561741634553e-06
 
 Accuracy on test set: 
-Percent correct: 0.540000 
+Percent correct: 0.500000 
 
 Evaluating train_3
 Probability:  1.0
@@ -208,7 +208,7 @@ Probability:  1.0
 Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.680000 
+Percent correct: 0.560000 
 
 Evaluating train_5
 Probability:  1.0
@@ -314,7 +314,7 @@ Probability:  1.0
 Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.480000 
+Percent correct: 0.580000 
 
 Evaluating train_10
 Probability:  1.0
@@ -420,5 +420,5 @@ Probability:  1.0
 Average probability:  1.0
 
 Accuracy on test set: 
-Percent correct: 0.480000 
+Percent correct: 0.580000 
 

@@ -5,8 +5,8 @@ from feature_preference.utils.mushroom_utils import calc_num_labels, plot_compar
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--env', type=str, default='flights')
-parser.add_argument('--reward', type=str, default='reward4')
+parser.add_argument('--env', type=str, default='sim_mushrooms')
+parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--seed', type=int, default=1)
 parser.add_argument('--rel_features', type=int, default=1)
 
@@ -73,6 +73,26 @@ for i in range(len(splitted_data)):
     elif "Percent correct" in line_data:
         featureprefshuman_correct.append(float(line_data.split(": ")[1]))
 
+# parses rlhf_human results
+in_file = '../results/'  + args.env + '/' + args.reward + '/' + str(args.seed) + '/0results_rlhfhuman.txt'
+with open(in_file, 'r') as f:
+    file_data= f.read()
+
+splitted_data = file_data.split("\n")
+
+comparisons = []
+rlhfhuman_probs = []
+rlhfhuman_correct = []
+
+for i in range(len(splitted_data)):
+    line_data = splitted_data[i]
+    if "Evaluating" in line_data:
+        comparisons.append(line_data.split(' ')[1])
+    elif "Average probability" in line_data:
+        rlhfhuman_probs.append(float(line_data.split(":  ")[1]))
+    elif "Percent correct" in line_data:
+        rlhfhuman_correct.append(float(line_data.split(": ")[1]))
+
 # saves as processed file
 out_file = '../results/'  + args.env + '/' + args.reward + '/' + str(args.seed) + '/0results_parsed.txt'
 with open(out_file, 'w') as f:
@@ -83,6 +103,8 @@ with open(out_file, 'w') as f:
     f.write("featureprefs_correct = {}\n".format(featureprefs_correct))
     f.write("featureprefshuman_probs = {}\n".format(featureprefshuman_probs))
     f.write("featureprefshuman_correct = {}\n".format(featureprefshuman_correct))
+    f.write("rlhfhuman_probs = {}\n".format(rlhfhuman_probs))
+    f.write("rlhfhuman_correct = {}\n".format(rlhfhuman_correct))
 
 if args.env == 'sim_mushrooms':
     rlhf_labels = [1,3,5,10,15,20,30,50,100]
@@ -93,8 +115,8 @@ featureprefshuman_labels = calc_num_labels(rlhf_labels, args.rel_features) # cal
 
 # plots
 save_loc = '../results/'  + args.env + '/' + args.reward + '/' + str(args.seed)
-plot_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc)
-plot_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc)
+plot_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc)
+plot_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc)
 
-plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc)
-plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc)
+plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_labels, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc)
+plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_labels, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc)

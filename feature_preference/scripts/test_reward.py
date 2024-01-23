@@ -9,9 +9,9 @@ from feature_preference.utils.flight_utils import calculate_best_flight
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhf, feature_prefs, feature_prefs_human
+parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhf, feature_prefs, feature_prefs_human, rlhf_human
 parser.add_argument('--linear', type=bool, default=False)
-parser.add_argument('--env', type=str, default='flights')
+parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--test_network', type=str, default='train_10')
 parser.add_argument('--test_set', type=str, default='test_50')
@@ -43,7 +43,7 @@ elif args.env == 'flights':
 for state in best_states:
     if args.env == 'sim_mushrooms':
         state = state.tolist()
-    if args.prefs_type == 'rlhf':
+    if args.prefs_type == 'rlhf' or args.prefs_type == 'rlhf_human':
         state = torch.Tensor(state).to(device)
         pred_prob = torch.sigmoid(reward_net(state)).cpu().detach().numpy()[0]
     else:
@@ -86,7 +86,7 @@ with open(test_set_path) as file_obj:
 num_correct = 0.0
 for i in range(len(states1)):
 
-    if args.prefs_type == 'rlhf':
+    if args.prefs_type == 'rlhf' or args.prefs_type == 'rlhf_human':
         state1 = torch.Tensor(states1[i]).to(device)
         state2 = torch.Tensor(states2[i]).to(device)
         pred_prob1 = torch.sigmoid(reward_net(state1)).cpu().detach().numpy()[0]

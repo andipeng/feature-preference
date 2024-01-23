@@ -10,9 +10,9 @@ from feature_preference.models.reward_networks import LinearRewardMLP, PairwiseL
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhf, feature_prefs, feature_prefs_human
+parser.add_argument('--prefs_type', type=str, default='rlhf_human') # rlhf, feature_prefs (joint loss), feature_prefs_human (pragmatic joint loss), rlhf_human (pragmatic rlhf)
 parser.add_argument('--linear', type=bool, default=False)
-parser.add_argument('--env', type=str, default='flights')
+parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--data_file', type=str, default='train_1')
 parser.add_argument('--epochs', type=int, default=3000)
@@ -24,7 +24,7 @@ parser.add_argument('--beta', type=float, default=0.5) # param for state_weight 
 args = parser.parse_args()
 ########################################################################
 
-if args.prefs_type == 'feature_prefs_human':
+if args.prefs_type == 'feature_prefs_human' or args.prefs_type == 'rlhf_human':
     data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '_augment.csv'
 else:
     data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '.csv'
@@ -60,7 +60,7 @@ print("Loaded data from " + args.data_file)
 print("========================================")
 
 # defines network depending on type of comparison(s)
-if args.prefs_type == 'rlhf':
+if args.prefs_type == 'rlhf' or args.prefs_type == 'rlhf_human':
     reward_net = LinearRewardMLP(state_dim=len(states1[0]))
 else:
     if args.env == 'sim_mushrooms':
@@ -91,7 +91,7 @@ for epoch in range(args.epochs):
         feature_maps = torch.Tensor(feature_maps).float().to(device)
 
         # pairwise ranking loss (1 -> pred1 better than pred2, -1 -> the other way around)
-        if args.prefs_type == 'rlhf':
+        if args.prefs_type == 'rlhf' or args.prefs_type == 'rlhf_human':
             preds_r1 = reward_net(states1)
             preds_r2 = reward_net(states2)
             loss = loss_fn(preds_r1, preds_r2, prefs)

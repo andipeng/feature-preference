@@ -8,7 +8,7 @@ from feature_preference.utils.mushroom_utils import calc_num_labels, plot_compar
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--env', type=str, default='flights')
+parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
 parser.add_argument('--seeds', type=list, default=[1,2,3])
 parser.add_argument('--rel_features', type=int, default=3)
@@ -51,7 +51,10 @@ featureprefs_probs, featureprefs_probs_err = calc_avg(*[parse_file(file)['featur
 featureprefs_correct, featureprefs_cor_err = calc_avg(*[parse_file(file)['featureprefs_correct'] for file in files])
 
 featureprefshuman_probs, featureprefshuman_probs_err = calc_avg(*[parse_file(file)['featureprefshuman_probs'] for file in files])
-featureprefshuman_correct, featureprefshuman_cor_error = calc_avg(*[parse_file(file)['featureprefshuman_correct'] for file in files])
+featureprefshuman_correct, featureprefshuman_cor_err = calc_avg(*[parse_file(file)['featureprefshuman_correct'] for file in files])
+
+rlhfhuman_probs, rlhfhuman_probs_err = calc_avg(*[parse_file(file)['rlhfhuman_probs'] for file in files])
+rlhfhuman_correct, rlhfhuman_cor_err = calc_avg(*[parse_file(file)['rlhfhuman_correct'] for file in files])
 
 # saves as processed file
 out_file = '../results/'  + args.env + '/' + args.reward + '/results.txt'
@@ -68,7 +71,11 @@ with open(out_file, 'w') as f:
     f.write("featureprefshuman_probs = {}\n".format(featureprefshuman_probs))
     f.write("featureprefshuman_probs_err = {}\n".format(featureprefshuman_probs_err))
     f.write("featureprefshuman_correct = {}\n".format(featureprefshuman_correct))
-    f.write("featureprefshuman_cor_error = {}\n".format(featureprefshuman_cor_error))
+    f.write("featureprefshuman_cor_err = {}\n".format(featureprefshuman_cor_err))
+    f.write("rlhfhuman_probs = {}\n".format(rlhfhuman_probs))
+    f.write("rlhfhuman_probs_err = {}\n".format(rlhfhuman_probs_err))
+    f.write("rlhfhuman_correct = {}\n".format(rlhfhuman_correct))
+    f.write("rlhfhuman_cor_err = {}\n".format(rlhfhuman_cor_err))
 
 if args.env == 'sim_mushrooms':
     rlhf_labels = [1,3,5,10,15,20,30,50,100]
@@ -79,8 +86,8 @@ featureprefshuman_labels = calc_num_labels(rlhf_labels, args.rel_features) # cal
 
 # plots
 save_loc = '../results/'  + args.env + '/' + args.reward
-plot_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err)
-plot_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_error)
+plot_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err, rlhfhuman_probs_err)
+plot_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_err, rlhfhuman_cor_err)
 
-plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err)
-plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_error)
+plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_labels, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err, rlhfhuman_probs_err)
+plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_labels, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_err, rlhfhuman_cor_err)
