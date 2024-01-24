@@ -4,7 +4,7 @@ import itertools
 import matplotlib.pyplot as plt
 
 # plotting code
-def plot_comparisons(x, y1, y2, y3, y4, y_label, save_loc, y1_err=None, y2_err=None, y3_err=None, y4_err=None):
+def plot_mushroom_comparisons(x, y1, y2, y3, y4, y_label, save_loc, y1_err=None, y2_err=None, y3_err=None, y4_err=None):
     # create an index list for x-values
     x_values = range(len(x))
     y1 = np.array(y1)
@@ -21,11 +21,11 @@ def plot_comparisons(x, y1, y2, y3, y4, y_label, save_loc, y1_err=None, y2_err=N
         y4_err = np.array(y4_err)
         ax.fill_between(x_values, y1-y1_err, y1+y1_err, color='black', alpha=0.1)
         ax.fill_between(x_values, y2-y2_err, y2+y2_err, color='green', alpha=0.1)
-        ax.fill_between(x_values, y3-y3_err, y3+y3_err, color='orange', alpha=0.1)
+        ax.fill_between(x_values, y3-y3_err, y3+y3_err, color='deeppink', alpha=0.1)
         ax.fill_between(x_values, y4-y4_err, y4+y4_err, color='blue', alpha=0.1)
     ax.plot(x_values, y1, marker='o', color='black', label='rlhf')
     ax.plot(x_values, y2, marker='o', color='green', label='feature_prefs')
-    ax.plot(x_values, y3, marker='o', color='orange', label='feature_prefs_human')
+    ax.plot(x_values, y3, marker='o', color='deeppink', label='feature_prefs_human')
     ax.plot(x_values, y4, marker='o', color='blue', label='rlhf_human')
 
     # set x-ticks to be the comparison values

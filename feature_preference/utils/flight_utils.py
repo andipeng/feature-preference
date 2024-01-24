@@ -1,5 +1,34 @@
 import itertools
 import random
+import numpy as np
+import matplotlib.pyplot as plt
+
+# plotting code
+def plot_flight_comparisons(x, y1, y2, y_label, save_loc, y1_err=None, y2_err=None):
+    # create an index list for x-values
+    x_values = range(len(x))
+    y1 = np.array(y1)
+    y2 = np.array(y2)
+
+    fig, ax = plt.subplots()
+    # add std err if over multiple seeds
+    if y1_err is not None:
+        y1_err = np.array(y1_err)
+        y2_err = np.array(y2_err)
+        ax.fill_between(x_values, y1-y1_err, y1+y1_err, color='black', alpha=0.1)
+        ax.fill_between(x_values, y2-y2_err, y2+y2_err, color='deeppink', alpha=0.1)
+    ax.plot(x_values, y1, marker='o', color='black', label='rlhf')
+    ax.plot(x_values, y2, marker='o', color='deeppink', label='feature_prefs_human')
+
+    # set x-ticks to be the comparison values
+    ax.set_xticks(x_values)
+    ax.set_xticklabels(x)
+    ax.yaxis.set_ticks(np.arange(0.5, 1.05, 0.1))
+
+    ax.set_xlabel('Number of Comparisons')
+    ax.set_ylabel(y_label)
+    ax.legend()
+    plt.savefig(save_loc + '/0' + y_label + '_comparisons.pdf')
 
 # calculates state reward based on ground truth rewards
 def calculate_reward(state, true_reward):
