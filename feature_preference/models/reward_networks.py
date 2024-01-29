@@ -76,8 +76,8 @@ class FeaturePrefNetworkFlights(nn.Module):
         self.feat6 = nn.Linear(feature_dim, 1)
         self.feat7 = nn.Linear(feature_dim, 1)
         self.feat8 = nn.Linear(feature_dim, 1)
-        self.reward = nn.Linear(num_features, 1)
 
+        self.reward = nn.Linear(num_features, 1)
     def forward(self, state):
         # extracts each feature, output passed through linear reward
         feat1 = self.feat1(state[:,0].unsqueeze(1))

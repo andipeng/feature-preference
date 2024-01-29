@@ -1,7 +1,7 @@
 # per reward
-for reward in reward1 reward2 reward3 reward4 reward5 reward6
+for reward in reward3
 do
-    for seed in 1 2 3
+    for seed in 1 3 4
     do
     python3 generate_mushroom_data.py --env sim_mushrooms --config $reward --num_comparisons 1 --seed $seed &
     python3 generate_mushroom_data.py --env sim_mushrooms --config $reward --num_comparisons 3 --seed $seed &

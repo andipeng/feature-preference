@@ -8,9 +8,9 @@ from feature_preference.utils.flight_utils import plot_flight_comparisons
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--env', type=str, default='flights')
+parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
-parser.add_argument('--seeds', type=list, default=[1,2,3])
+parser.add_argument('--seeds', type=list, default=[1,2,3,4])
 parser.add_argument('--rel_features', type=int, default=3)
 
 args = parser.parse_args()

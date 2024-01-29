@@ -245,7 +245,7 @@ Probability:  0.07566309
 Average probability:  0.7386258828104952
 
 Accuracy on test set: 
-Percent correct: 0.620000 
+Percent correct: 0.580000 
 
 Evaluating train_3
 Probability:  0.6244162
@@ -494,7 +494,7 @@ Probability:  0.9991203
 Average probability:  0.7180902431752465
 
 Accuracy on test set: 
-Percent correct: 0.700000 
+Percent correct: 0.640000 
 
 Evaluating train_5
 Probability:  0.0011499648
@@ -743,7 +743,7 @@ Probability:  0.99999714
 Average probability:  0.5598374789715796
 
 Accuracy on test set: 
-Percent correct: 0.580000 
+Percent correct: 0.540000 
 
 Evaluating train_10
 Probability:  0.99952984
@@ -992,7 +992,7 @@ Probability:  0.99905235
 Average probability:  0.9941897166609274
 
 Accuracy on test set: 
-Percent correct: 0.880000 
+Percent correct: 0.840000 
 
 Evaluating train_15
 Probability:  0.99944407
@@ -1241,7 +1241,7 @@ Probability:  0.9999995
 Average probability:  0.9998779220836153
 
 Accuracy on test set: 
-Percent correct: 0.860000 
+Percent correct: 0.840000 
 
 Evaluating train_20
 Probability:  0.9999964
@@ -1490,7 +1490,7 @@ Probability:  0.99996734
 Average probability:  0.9999874560430707
 
 Accuracy on test set: 
-Percent correct: 0.900000 
+Percent correct: 0.860000 
 
 Evaluating train_30
 Probability:  1.0
@@ -1739,7 +1739,7 @@ Probability:  1.0
 Average probability:  0.999999747845371
 
 Accuracy on test set: 
-Percent correct: 0.880000 
+Percent correct: 0.940000 
 
 Evaluating train_50
 Probability:  0.99999845
@@ -1988,7 +1988,7 @@ Probability:  0.99999905
 Average probability:  0.9999981637844824
 
 Accuracy on test set: 
-Percent correct: 0.920000 
+Percent correct: 0.860000 
 
 Evaluating train_100
 Probability:  0.9999808
@@ -2237,5 +2237,5 @@ Probability:  0.9999664
 Average probability:  0.9999752422419105
 
 Accuracy on test set: 
-Percent correct: 0.920000 
+Percent correct: 0.880000 
 
