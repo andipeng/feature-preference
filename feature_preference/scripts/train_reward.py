@@ -10,7 +10,7 @@ from feature_preference.models.reward_networks import LinearRewardMLP, PairwiseL
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='rlhf_human') # rlhf, feature_prefs (joint loss), feature_prefs_human (pragmatic joint loss), rlhf_human (pragmatic rlhf)
+parser.add_argument('--prefs_type', type=str, default='rlhf_human') # rlhf, feature_prefs (joint loss), feature_prefs_human (pragmatic joint loss), rlhf_human (pragmatic rlhf), feature_prefs_gt (pragmatic joint loss, gt feature map)
 parser.add_argument('--linear', type=bool, default=False)
 parser.add_argument('--env', type=str, default='sim_mushrooms')
 parser.add_argument('--reward', type=str, default='reward1')
@@ -24,10 +24,18 @@ parser.add_argument('--beta', type=float, default=0.5) # param for state_weight 
 args = parser.parse_args()
 ########################################################################
 
-if args.prefs_type == 'feature_prefs_human' or args.prefs_type == 'rlhf_human':
-    data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '_augment.csv'
-else:
-    data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '.csv'
+if args.env == 'sim_mushrooms':
+    if args.prefs_type == 'feature_prefs_human' or args.prefs_type == 'rlhf_human':
+        data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '_augment.csv'
+    else:
+        data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '.csv'
+elif args.env == 'flights':
+    if args.prefs_type == 'feature_prefs_human' or args.prefs_type == 'rlhf_human':
+        data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '_human_augment.csv'
+    elif args.prefs_type == 'feature_prefs_gt':
+        data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '_gt_augment.csv'
+    else:
+        data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '.csv'
 with open(data_file) as file_obj:
     reader_obj = csv.reader(file_obj)
 

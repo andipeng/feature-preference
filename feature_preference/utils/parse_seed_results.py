@@ -6,9 +6,9 @@ from feature_preference.utils.flight_utils import plot_flight_comparisons
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--reward', type=str, default='reward3')
-parser.add_argument('--seed', type=int, default=2)
+parser.add_argument('--env', type=str, default='flights')
+parser.add_argument('--reward', type=str, default='reward1')
+parser.add_argument('--seed', type=int, default=1)
 parser.add_argument('--rel_features', type=int, default=1)
 
 args = parser.parse_args()
@@ -96,6 +96,27 @@ if args.env == 'sim_mushrooms':
         elif "Percent correct" in line_data:
             rlhfhuman_correct.append(float(line_data.split(": ")[1]))
 
+# parses feature_prefs_gt results
+if args.env == 'flights':
+    in_file = '../results/'  + args.env + '/' + args.reward + '/' + str(args.seed) + '/0results_featureprefsgt.txt'
+    with open(in_file, 'r') as f:
+        file_data= f.read()
+
+    splitted_data = file_data.split("\n")
+
+    comparisons = []
+    featureprefsgt_probs = []
+    featureprefsgt_correct = []
+
+    for i in range(len(splitted_data)):
+        line_data = splitted_data[i]
+        if "Evaluating" in line_data:
+            comparisons.append(line_data.split(' ')[1])
+        elif "Average probability" in line_data:
+            featureprefsgt_probs.append(float(line_data.split(":  ")[1]))
+        elif "Percent correct" in line_data:
+            featureprefsgt_correct.append(float(line_data.split(": ")[1]))
+
 # saves as processed file
 out_file = '../results/'  + args.env + '/' + args.reward + '/' + str(args.seed) + '/0results_parsed.txt'
 with open(out_file, 'w') as f:
@@ -110,6 +131,9 @@ with open(out_file, 'w') as f:
     if args.env == 'sim_mushrooms':
         f.write("rlhfhuman_probs = {}\n".format(rlhfhuman_probs))
         f.write("rlhfhuman_correct = {}\n".format(rlhfhuman_correct))
+    if args.env == 'flights':
+        f.write("featureprefsgt_probs = {}\n".format(featureprefsgt_probs))
+        f.write("featureprefsgt_correct = {}\n".format(featureprefsgt_correct))
 
 #if args.env == 'sim_mushrooms':
 #    rlhf_labels = [1,3,5,10,15,20,30,50,100]
@@ -124,8 +148,8 @@ if args.env == 'sim_mushrooms':
     plot_mushroom_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc)
     plot_mushroom_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc)
 elif args.env == 'flights':
-    plot_flight_comparisons(comparisons, rlhf_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc)
-    plot_flight_comparisons(comparisons, rlhf_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc)
+    plot_flight_comparisons(comparisons, rlhf_probs, featureprefshuman_probs, featureprefsgt_probs, 'prob_gt_reward', save_loc)
+    plot_flight_comparisons(comparisons, rlhf_correct, featureprefshuman_correct, featureprefsgt_correct, 'accuracy_test_set', save_loc)
 
 # plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_labels, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc)
 # plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_labels, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc)

@@ -9,9 +9,9 @@ from feature_preference.utils.flight_utils import calculate_best_flight
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhf, feature_prefs, feature_prefs_human, rlhf_human
+parser.add_argument('--prefs_type', type=str, default='feature_prefs') # rlhf, feature_prefs, feature_prefs_human, rlhf_human, feature_prefs_gt
 parser.add_argument('--linear', type=bool, default=False)
-parser.add_argument('--env', type=str, default='sim_mushrooms')
+parser.add_argument('--env', type=str, default='flights')
 parser.add_argument('--reward', type=str, default='reward3')
 parser.add_argument('--test_network', type=str, default='train_10')
 parser.add_argument('--test_set', type=str, default='test_50')

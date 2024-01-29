@@ -4,21 +4,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # plotting code
-def plot_flight_comparisons(x, y1, y2, y_label, save_loc, y1_err=None, y2_err=None):
+def plot_flight_comparisons(x, y1, y2, y3, y_label, save_loc, y1_err=None, y2_err=None, y3_err=None):
     # create an index list for x-values
     x_values = range(len(x))
     y1 = np.array(y1)
     y2 = np.array(y2)
+    y3 = np.array(y3)
 
     fig, ax = plt.subplots()
     # add std err if over multiple seeds
     if y1_err is not None:
         y1_err = np.array(y1_err)
         y2_err = np.array(y2_err)
+        y3_err = np.array(y3_err)
         ax.fill_between(x_values, y1-y1_err, y1+y1_err, color='black', alpha=0.1)
         ax.fill_between(x_values, y2-y2_err, y2+y2_err, color='deeppink', alpha=0.1)
+        ax.fill_between(x_values, y3-y3_err, y3+y3_err, color='orange', alpha=0.1)
     ax.plot(x_values, y1, marker='o', color='black', label='rlhf')
     ax.plot(x_values, y2, marker='o', color='deeppink', label='feature_prefs_human')
+    ax.plot(x_values, y3, marker='o', color='orange', label='feature_prefs_gt')
 
     # set x-ticks to be the comparison values
     ax.set_xticks(x_values)
@@ -84,7 +88,7 @@ def possible_feature_values(reward_weight, feature_type):
         else:
             return [0.0, 1.0]
 
-def write_flight(state1, state1_reward, state2, state2_reward, pref, feature_prefs, feature_map):
+def write_flight(state1, state1_reward, state2, state2_reward, pref, feature_prefs, human_feature_map, gt_feature_map):
     final_list = []
     final_list.extend(state1)
     final_list.extend([state1_reward])
@@ -92,5 +96,6 @@ def write_flight(state1, state1_reward, state2, state2_reward, pref, feature_pre
     final_list.extend([state2_reward])
     final_list.extend([pref])
     final_list.extend(feature_prefs)
-    final_list.extend(feature_map)
+    final_list.extend(human_feature_map)
+    final_list.extend(gt_feature_map)
     return final_list

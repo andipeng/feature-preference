@@ -8,9 +8,9 @@ from feature_preference.utils.flight_utils import plot_flight_comparisons
 
 ########################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('--env', type=str, default='sim_mushrooms')
-parser.add_argument('--reward', type=str, default='reward1')
-parser.add_argument('--seeds', type=list, default=[1,2,3,4])
+parser.add_argument('--env', type=str, default='flights')
+parser.add_argument('--reward', type=str, default='reward10')
+parser.add_argument('--seeds', type=list, default=[1,2,3])
 parser.add_argument('--rel_features', type=int, default=3)
 
 args = parser.parse_args()
@@ -58,6 +58,10 @@ if args.env == 'sim_mushrooms':
     rlhfhuman_probs, rlhfhuman_probs_err = calc_avg(*[parse_file(file)['rlhfhuman_probs'] for file in files])
     rlhfhuman_correct, rlhfhuman_cor_err = calc_avg(*[parse_file(file)['rlhfhuman_correct'] for file in files])
 
+if args.env == 'flights':
+    featureprefsgt_probs, featureprefsgt_probs_err = calc_avg(*[parse_file(file)['featureprefsgt_probs'] for file in files])
+    featureprefsgt_correct, featureprefsgt_cor_err = calc_avg(*[parse_file(file)['featureprefsgt_correct'] for file in files])
+
 # saves as processed file
 out_file = '../results/'  + args.env + '/' + args.reward + '/results.txt'
 with open(out_file, 'w') as f:
@@ -80,6 +84,11 @@ with open(out_file, 'w') as f:
         f.write("rlhfhuman_probs_err = {}\n".format(rlhfhuman_probs_err))
         f.write("rlhfhuman_correct = {}\n".format(rlhfhuman_correct))
         f.write("rlhfhuman_cor_err = {}\n".format(rlhfhuman_cor_err))
+    if args.env == 'flights':
+        f.write("featureprefsgt_probs = {}\n".format(featureprefsgt_probs))
+        f.write("featureprefsgt_probs_err = {}\n".format(featureprefsgt_probs_err))
+        f.write("featureprefsgt_correct = {}\n".format(featureprefsgt_correct))
+        f.write("featureprefsgt_cor_err = {}\n".format(featureprefsgt_cor_err))
 
 # if args.env == 'sim_mushrooms':
 #     rlhf_labels = [1,3,5,10,15,20,30,50,100]
@@ -94,8 +103,8 @@ if args.env == 'sim_mushrooms':
     plot_mushroom_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err, rlhfhuman_probs_err)
     plot_mushroom_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_err, rlhfhuman_cor_err)
 elif args.env == 'flights':
-    plot_flight_comparisons(comparisons, rlhf_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefshuman_probs_err)
-    plot_flight_comparisons(comparisons, rlhf_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefshuman_cor_err)
+    plot_flight_comparisons(comparisons, rlhf_probs, featureprefshuman_probs, featureprefsgt_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefshuman_probs_err, featureprefsgt_probs_err)
+    plot_flight_comparisons(comparisons, rlhf_correct, featureprefshuman_correct, featureprefsgt_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefshuman_cor_err, featureprefsgt_cor_err)
 
 #plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_labels, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc, rlhf_probs_err, featureprefs_probs_err, featureprefshuman_probs_err, rlhfhuman_probs_err)
 #plot_labels(rlhf_labels, featureprefs_labels, featureprefshuman_labels, rlhf_labels, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc, rlhf_cor_err, featureprefs_cor_err, featureprefshuman_cor_err, rlhfhuman_cor_err)

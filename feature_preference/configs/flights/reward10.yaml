@@ -11,3 +11,4 @@ features:
 true_reward: [0, 1, 1, -1, 0, -1, 0.5, 1]
 
 human_feature_map: [0,1,1,1,0,0,1,1]
+gt_feature_map: [0,1,1,1,0,1,1,1]

@@ -3,3 +3,5 @@ rlhf_probs = [0.606252110004425, 0.77223741710186, 0.8677166044712067, 0.2300770
 rlhf_correct = [0.58, 0.66, 0.76, 0.62]
 featureprefshuman_probs = [0.9999821066856385, 1.0, 1.0, 1.0]
 featureprefshuman_correct = [0.48, 0.74, 0.94, 0.84]
+featureprefsgt_probs = [1.0, 1.0, 1.0, 1.0]
+featureprefsgt_correct = [0.48, 0.64, 0.58, 0.78]

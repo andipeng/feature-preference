@@ -22,7 +22,7 @@ Probability:  0.74372315
 Average probability:  0.8421586960554123
 
 Accuracy on test set: 
-Percent correct: 0.540000 
+Percent correct: 0.580000 
 
 Evaluating train_3
 Probability:  0.81996566
@@ -48,7 +48,7 @@ Probability:  0.23107682
 Average probability:  0.5338420875370502
 
 Accuracy on test set: 
-Percent correct: 0.660000 
+Percent correct: 0.580000 
 
 Evaluating train_5
 Probability:  0.9968532
@@ -74,7 +74,7 @@ Probability:  0.99198455
 Average probability:  0.9918406665325165
 
 Accuracy on test set: 
-Percent correct: 0.820000 
+Percent correct: 0.640000 
 
 Evaluating train_10
 Probability:  0.99286664
@@ -100,5 +100,5 @@ Probability:  0.96435535
 Average probability:  0.9760321706533432
 
 Accuracy on test set: 
-Percent correct: 0.820000 
+Percent correct: 0.740000 
 
