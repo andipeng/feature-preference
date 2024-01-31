@@ -1,7 +1,7 @@
 import argparse
 import matplotlib.pyplot as plt
 
-from feature_preference.utils.mushroom_utils import calc_num_labels, plot_mushroom_comparisons, plot_labels
+from feature_preference.utils.mushroom_utils import calc_num_labels, plot_mushroom_comparisons, plot_user_mushroom_comparisons, plot_labels
 from feature_preference.utils.flight_utils import plot_flight_comparisons
 
 ########################################################################
@@ -35,7 +35,7 @@ for i in range(len(splitted_data)):
         rlhf_correct.append(float(line_data.split(": ")[1]))
 
 # parses featureprefs results
-if args.env == 'sim_mushrooms':
+if args.env == 'sim_mushrooms' or args.env == 'user_study':
     in_file = '../results/'  + args.env + '/' + args.reward + '/' + str(args.seed) + '/0results_featureprefs.txt'
     with open(in_file, 'r') as f:
         file_data= f.read()
@@ -123,7 +123,7 @@ with open(out_file, 'w') as f:
     f.write("comparisons = {}\n".format(comparisons))
     f.write("rlhf_probs = {}\n".format(rlhf_probs))
     f.write("rlhf_correct = {}\n".format(rlhf_correct))
-    if args.env == 'sim_mushrooms':
+    if args.env == 'sim_mushrooms' or args.env == 'user_study':
         f.write("featureprefs_probs = {}\n".format(featureprefs_probs))
         f.write("featureprefs_correct = {}\n".format(featureprefs_correct))
     f.write("featureprefshuman_probs = {}\n".format(featureprefshuman_probs))
@@ -135,7 +135,7 @@ with open(out_file, 'w') as f:
         f.write("featureprefsgt_probs = {}\n".format(featureprefsgt_probs))
         f.write("featureprefsgt_correct = {}\n".format(featureprefsgt_correct))
 
-#if args.env == 'sim_mushrooms':
+#if args.env == 'sim_mushrooms' or args.env == 'user_study':
 #    rlhf_labels = [1,3,5,10,15,20,30,50,100]
 #elif args.env == 'flights':
 #    rlhf_labels = [1,3,5,10]
@@ -147,6 +147,9 @@ save_loc = '../results/'  + args.env + '/' + args.reward + '/' + str(args.seed)
 if args.env == 'sim_mushrooms':
     plot_mushroom_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, rlhfhuman_probs, 'prob_gt_reward', save_loc)
     plot_mushroom_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, rlhfhuman_correct, 'accuracy_test_set', save_loc)
+elif args.env == 'user_study':
+    plot_user_mushroom_comparisons(comparisons, rlhf_probs, featureprefs_probs, featureprefshuman_probs, 'prob_gt_reward', save_loc)
+    plot_user_mushroom_comparisons(comparisons, rlhf_correct, featureprefs_correct, featureprefshuman_correct, 'accuracy_test_set', save_loc)
 elif args.env == 'flights':
     plot_flight_comparisons(comparisons, rlhf_probs, featureprefshuman_probs, featureprefsgt_probs, 'prob_gt_reward', save_loc)
     plot_flight_comparisons(comparisons, rlhf_correct, featureprefshuman_correct, featureprefsgt_correct, 'accuracy_test_set', save_loc)

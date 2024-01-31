@@ -1,0 +1,9 @@
+Evaluating train_1
+Probability:  0.519238
+Average probability:  0.5192379951477051
+Evaluating train_3
+Probability:  0.84002703
+Average probability:  0.8400270342826843
+Evaluating train_5
+Probability:  0.506469
+Average probability:  0.5064690113067627

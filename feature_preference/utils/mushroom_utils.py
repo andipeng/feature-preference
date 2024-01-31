@@ -38,6 +38,37 @@ def plot_mushroom_comparisons(x, y1, y2, y3, y4, y_label, save_loc, y1_err=None,
     ax.legend()
     plt.savefig(save_loc + '/0' + y_label + '_comparisons.pdf')
 
+# plotting code
+def plot_user_mushroom_comparisons(x, y1, y2, y3, y_label, save_loc, y1_err=None, y2_err=None, y3_err=None):
+    # create an index list for x-values
+    x_values = range(len(x))
+    y1 = np.array(y1)
+    y2 = np.array(y2)
+    y3 = np.array(y3)
+
+    fig, ax = plt.subplots()
+    # add std err if over multiple seeds
+    if y1_err is not None:
+        y1_err = np.array(y1_err)
+        y2_err = np.array(y2_err)
+        y3_err = np.array(y3_err)
+        ax.fill_between(x_values, y1-y1_err, y1+y1_err, color='black', alpha=0.1)
+        ax.fill_between(x_values, y2-y2_err, y2+y2_err, color='green', alpha=0.1)
+        ax.fill_between(x_values, y3-y3_err, y3+y3_err, color='deeppink', alpha=0.1)
+    ax.plot(x_values, y1, marker='o', color='black', label='rlhf')
+    ax.plot(x_values, y2, marker='o', color='green', label='feature_prefs')
+    ax.plot(x_values, y3, marker='o', color='deeppink', label='feature_prefs_human')
+
+    # set x-ticks to be the comparison values
+    ax.set_xticks(x_values)
+    ax.set_xticklabels(x)
+    ax.yaxis.set_ticks(np.arange(0.5, 1.05, 0.1))
+
+    ax.set_xlabel('Number of Comparisons')
+    ax.set_ylabel(y_label)
+    ax.legend()
+    plt.savefig(save_loc + '/0' + y_label + '_comparisons.pdf')
+
 def plot_labels(x1, x2, x3, x4, y1, y2, y3, y4, y_label, save_loc, y1_err=None, y2_err=None, y3_err=None, y4_err=None):
     y1 = np.array(y1)
     y2 = np.array(y2)
@@ -97,6 +128,16 @@ def calculate_reward(state, true_reward):
         rewards+=reward
     return rewards
 
+def calculate_user_reward(state, true_reward):
+    rewards = 0
+    feature_index = 0
+    for feature in true_reward.keys():
+        index = state[feature_index:feature_index+3].index(1)
+        reward = true_reward[feature][index]
+        rewards+=reward
+        feature_index+=3
+    return rewards
+
 def calculate_feature_prefs(state1, state2, true_reward):
     feature_prefs = []
     for feature in state1.keys():
@@ -110,6 +151,23 @@ def calculate_feature_prefs(state1, state2, true_reward):
         if reward2 > reward1:
             feature_pref = -1
         feature_prefs.append(feature_pref)
+    return feature_prefs
+
+def calculate_user_feature_prefs(state1, state2, true_reward):
+    feature_prefs = []
+    feature_index = 0
+    for feature in true_reward.keys():
+        index1 = state1[feature_index:feature_index+3].index(1)
+        index2 = state2[feature_index:feature_index+3].index(1)
+        reward1 = true_reward[feature][index1]
+        reward2 = true_reward[feature][index2]
+        
+        # 1 if reward1 >= reward2, -1 otherwise
+        feature_pref = 1
+        if reward2 > reward1:
+            feature_pref = -1
+        feature_prefs.append(feature_pref)
+        feature_index+=3
     return feature_prefs
 
 # finds the highest reward mushroom(s)

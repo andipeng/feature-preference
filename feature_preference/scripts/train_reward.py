@@ -24,7 +24,7 @@ parser.add_argument('--beta', type=float, default=0.5) # param for state_weight 
 args = parser.parse_args()
 ########################################################################
 
-if args.env == 'sim_mushrooms':
+if args.env == 'sim_mushrooms' or args.env == 'user_study':
     if args.prefs_type == 'feature_prefs_human' or args.prefs_type == 'rlhf_human':
         data_file = '../data/' + args.env + '/' + args.reward + '/' + str(args.seed) + '/' + args.data_file + '_augment.csv'
     else:
@@ -45,7 +45,7 @@ with open(data_file) as file_obj:
     feature_prefs = []
     feature_maps = []
     for row in reader_obj:
-        if args.env == 'sim_mushrooms':
+        if args.env == 'sim_mushrooms' or args.env ==  'user_study':
             states1.append(row[0:18])
             states2.append(row[19:37])
             prefs.append([row[38]])
@@ -71,7 +71,7 @@ print("========================================")
 if args.prefs_type == 'rlhf' or args.prefs_type == 'rlhf_human':
     reward_net = LinearRewardMLP(state_dim=len(states1[0]))
 else:
-    if args.env == 'sim_mushrooms':
+    if args.env == 'sim_mushrooms' or args.env == 'user_study':
         reward_net = FeaturePrefNetworkMushrooms(feature_dim=3, num_features=6)
     elif args.env == 'flights':
         reward_net = FeaturePrefNetworkFlights(feature_dim=1, num_features=8)
@@ -105,7 +105,7 @@ for epoch in range(args.epochs):
             loss = loss_fn(preds_r1, preds_r2, prefs)
         # joint loss between all features (potentially with augmented feature dataset)
         else:
-            if args.env == 'sim_mushrooms':
+            if args.env == 'sim_mushrooms' or args.env == 'user_study':
                 preds_feat1a, preds_feat2a, preds_feat3a, preds_feat4a, preds_feat5a, preds_feat6a, preds_r1 = reward_net(states1)
                 preds_feat1b, preds_feat2b, preds_feat3b, preds_feat4b, preds_feat5b, preds_feat6b, preds_r2 = reward_net(states2)
                 loss_feat1 = loss_fn(preds_feat1a, preds_feat1b, feature_prefs[:,0], feature_maps[:,0])

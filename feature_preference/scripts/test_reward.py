@@ -34,21 +34,21 @@ reward_net.eval()
 print("Evaluating " + args.test_network)
 probs = []
 
-if args.env == 'sim_mushrooms':
+if args.env == 'sim_mushrooms' or args.env == 'user_study':
     best_states, max_reward = calculate_best_mushroom(config['features'], config['true_reward'])
 elif args.env == 'flights':
     best_states = calculate_best_flight(config['true_reward'])
 
 # compute probability of network on best state
 for state in best_states:
-    if args.env == 'sim_mushrooms':
+    if args.env == 'sim_mushrooms' or args.env == 'user_study':
         state = state.tolist()
     if args.prefs_type == 'rlhf' or args.prefs_type == 'rlhf_human':
         state = torch.Tensor(state).to(device)
         pred_prob = torch.sigmoid(reward_net(state)).cpu().detach().numpy()[0]
     else:
         state = torch.unsqueeze(torch.Tensor(state).to(device), dim=0)
-        if args.env == 'sim_mushrooms':
+        if args.env == 'sim_mushrooms' or args.env == 'user_study':
             _, _, _, _, _, _, pred_prob = reward_net(state)
         elif args.env == 'flights':
             _, _, _, _, _, _, _, _, pred_prob = reward_net(state)
@@ -61,52 +61,53 @@ print('Average probability: ', sum(probs)/len(probs))
 
 ########################################################################
 
-# Evaluate network on accuracy of predicting correct comparison out of test set pair
-print("\nAccuracy on test set: ")
-test_set_path = '../data/' + args.env + '/' + args.reward + '/' + args.test_set + '.csv'
-with open(test_set_path) as file_obj:
-    reader_obj = csv.reader(file_obj)
+if args.env == 'sim_mushrooms':
+    # Evaluate network on accuracy of predicting correct comparison out of test set pair
+    print("\nAccuracy on test set: ")
+    test_set_path = '../data/' + args.env + '/' + args.reward + '/' + args.test_set + '.csv'
+    with open(test_set_path) as file_obj:
+        reader_obj = csv.reader(file_obj)
 
-    states1 = []
-    states2 = []
-    prefs = []
-    for row in reader_obj:
-        if args.env == 'sim_mushrooms':
-            states1.append(row[0:18])
-            states2.append(row[19:37])
-            prefs.append(row[38])
-        elif args.env == 'flights':
-            states1.append(row[0:8])
-            states2.append(row[9:17])
-            prefs.append(row[18])
-    states1 = np.array(states1,dtype=float)
-    states2 = np.array(states2,dtype=float)
-    prefs = np.array(prefs,dtype=float)
+        states1 = []
+        states2 = []
+        prefs = []
+        for row in reader_obj:
+            if args.env == 'sim_mushrooms' or args.env == 'user_study':
+                states1.append(row[0:18])
+                states2.append(row[19:37])
+                prefs.append(row[38])
+            elif args.env == 'flights':
+                states1.append(row[0:8])
+                states2.append(row[9:17])
+                prefs.append(row[18])
+        states1 = np.array(states1,dtype=float)
+        states2 = np.array(states2,dtype=float)
+        prefs = np.array(prefs,dtype=float)
 
-num_correct = 0.0
-for i in range(len(states1)):
+    num_correct = 0.0
+    for i in range(len(states1)):
 
-    if args.prefs_type == 'rlhf' or args.prefs_type == 'rlhf_human':
-        state1 = torch.Tensor(states1[i]).to(device)
-        state2 = torch.Tensor(states2[i]).to(device)
-        pred_prob1 = torch.sigmoid(reward_net(state1)).cpu().detach().numpy()[0]
-        pred_prob2 = torch.sigmoid(reward_net(state2)).cpu().detach().numpy()[0]
-    else:
-        state1 = torch.unsqueeze(torch.Tensor(states1[i]).to(device), dim=0)
-        state2 = torch.unsqueeze(torch.Tensor(states2[i]).to(device), dim=0)
-        if args.env == 'sim_mushrooms':
-            _, _, _, _, _, _, pred_prob1 = reward_net(state1)
-            _, _, _, _, _, _, pred_prob2 = reward_net(state2)
-        elif args.env == 'flights':
-            _, _, _, _, _, _, _, _, pred_prob1 = reward_net(state1)
-            _, _, _, _, _, _, _, _, pred_prob2 = reward_net(state2)
-        pred_prob1 = torch.sigmoid(pred_prob1).cpu().detach().numpy()[0][0]
-        pred_prob2 = torch.sigmoid(pred_prob2).cpu().detach().numpy()[0][0]
+        if args.prefs_type == 'rlhf' or args.prefs_type == 'rlhf_human':
+            state1 = torch.Tensor(states1[i]).to(device)
+            state2 = torch.Tensor(states2[i]).to(device)
+            pred_prob1 = torch.sigmoid(reward_net(state1)).cpu().detach().numpy()[0]
+            pred_prob2 = torch.sigmoid(reward_net(state2)).cpu().detach().numpy()[0]
+        else:
+            state1 = torch.unsqueeze(torch.Tensor(states1[i]).to(device), dim=0)
+            state2 = torch.unsqueeze(torch.Tensor(states2[i]).to(device), dim=0)
+            if args.env == 'sim_mushrooms' or args.env == 'user_study':
+                _, _, _, _, _, _, pred_prob1 = reward_net(state1)
+                _, _, _, _, _, _, pred_prob2 = reward_net(state2)
+            elif args.env == 'flights':
+                _, _, _, _, _, _, _, _, pred_prob1 = reward_net(state1)
+                _, _, _, _, _, _, _, _, pred_prob2 = reward_net(state2)
+            pred_prob1 = torch.sigmoid(pred_prob1).cpu().detach().numpy()[0][0]
+            pred_prob2 = torch.sigmoid(pred_prob2).cpu().detach().numpy()[0][0]
 
-    if pred_prob1 >= pred_prob2 and prefs[i] == 1:
-        num_correct+=1
-    elif pred_prob1 < pred_prob2 and prefs[i] == -1:
-        num_correct+=1
+        if pred_prob1 >= pred_prob2 and prefs[i] == 1:
+            num_correct+=1
+        elif pred_prob1 < pred_prob2 and prefs[i] == -1:
+            num_correct+=1
 
-accuracy = num_correct / len(states1)
-print("Percent correct: %f \n" % accuracy)
+    accuracy = num_correct / len(states1)
+    print("Percent correct: %f \n" % accuracy)

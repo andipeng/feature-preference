@@ -1,0 +1,7 @@
+comparisons = ['train_1', 'train_3', 'train_5']
+rlhf_probs = [0.880914032459259, 0.915084719657898, 0.7695840001106262]
+rlhf_correct = []
+featureprefs_probs = [0.9976953864097595, 0.1612085998058319, 0.7715103626251221]
+featureprefs_correct = []
+featureprefshuman_probs = [0.9906788468360901, 0.8840227723121643, 0.9668591022491455]
+featureprefshuman_correct = []

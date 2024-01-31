@@ -2,6 +2,9 @@
 *.pt
 *.png
 
+# no user data
+/data/user_study
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
